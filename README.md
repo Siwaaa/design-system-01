@@ -28,6 +28,10 @@ pnpm dlx shadcn@latest add @linkz/theme @linkz/button @linkz/card
 
 Фирменный шрифт демо-стенда — Geist (`@fontsource-variable/geist`); в проект-потребитель он не устанавливается автоматически. Чтобы включить: `pnpm add @fontsource-variable/geist` и `@import "@fontsource-variable/geist";` в главный CSS.
 
+## Демо
+
+Живая демо-страница (все компоненты, светлая/тёмная тема): **https://siwaaa.github.io/design-system-01/** (GitHub Pages, ветка `gh-pages`). Обновить после правок: `pnpm deploy:demo`.
+
 ## Разработка
 
 ```bash
@@ -35,6 +39,7 @@ pnpm install
 pnpm dev              # демо-страница со всеми компонентами + тумблер темы
 pnpm build            # tsc + vite build (проверка)
 pnpm build:registry   # синк темы из theme.css в registry.json + shadcn build → r/
+pnpm deploy:demo      # пересобрать демо и опубликовать на GitHub Pages
 ```
 
 Правила внесения изменений — в [CLAUDE.md](CLAUDE.md). Главное: тема правится только в `registry/linkz/theme/theme.css`, после любых правок реестра — `pnpm build:registry` и коммит `r/`.

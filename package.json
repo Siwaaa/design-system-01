@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "build:registry": "node scripts/build-registry.mjs && shadcn build --output r"
+    "build:registry": "node scripts/build-registry.mjs && shadcn build --output r",
+    "deploy:demo": "bash scripts/deploy-demo.sh"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",
