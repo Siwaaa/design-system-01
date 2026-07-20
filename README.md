@@ -1,32 +1,40 @@
-# React + TypeScript + Vite
+# Linkz Design System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Общая дизайн-система для проектов Linkz — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@linkz`. Тема (primary `#2563eb`, светлая + тёмная, radius 12px) и 17 базовых компонентов. Код компонентов копируется в проект — им владеет проект (философия shadcn).
 
-Currently, two official plugins are available:
+Раздаётся статикой из папки [`r/`](r/) через GitHub raw.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Подключение в проект
 
-## React Compiler
+```bash
+# 1. Если в проекте ещё нет shadcn (Vite + Tailwind v4):
+pnpm dlx shadcn@latest init -b radix -p nova -y
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2. Зарегистрировать реестр (один раз, пишется в components.json):
+pnpm dlx shadcn@latest registry add "@linkz=https://raw.githubusercontent.com/Siwaaa/design-system-01/main/r/{name}.json"
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# 3. Ставить компоненты:
+pnpm dlx shadcn@latest add @linkz/theme @linkz/button @linkz/card
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`@linkz/theme` подтягивается автоматически как зависимость любого компонента — отдельно ставить не обязательно.
+
+## Состав
+
+| Item | Тип |
+|---|---|
+| `theme` | тема: cssVars light/dark, primary #2563eb (oklch), radius 0.75rem |
+| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui |
+
+Фирменный шрифт демо-стенда — Geist (`@fontsource-variable/geist`); в проект-потребитель он не устанавливается автоматически. Чтобы включить: `pnpm add @fontsource-variable/geist` и `@import "@fontsource-variable/geist";` в главный CSS.
+
+## Разработка
+
+```bash
+pnpm install
+pnpm dev              # демо-страница со всеми компонентами + тумблер темы
+pnpm build            # tsc + vite build (проверка)
+pnpm build:registry   # синк темы из theme.css в registry.json + shadcn build → r/
+```
+
+Правила внесения изменений — в [CLAUDE.md](CLAUDE.md). Главное: тема правится только в `registry/linkz/theme/theme.css`, после любых правок реестра — `pnpm build:registry` и коммит `r/`.
