@@ -4,7 +4,7 @@
 // Запуск: pnpm build:registry
 import { readFileSync, writeFileSync } from "node:fs"
 
-const css = readFileSync("registry/linkz/theme/theme.css", "utf8")
+const css = readFileSync("registry/limeui/theme/theme.css", "utf8")
 
 function parseBlock(selector) {
   const re = new RegExp(selector.replace(".", "\\.") + "\\s*\\{([^}]*)\\}")
