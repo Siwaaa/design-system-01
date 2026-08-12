@@ -137,6 +137,20 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "files": [
+        {
+          "path": "registry/limeui/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
