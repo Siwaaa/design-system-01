@@ -60,6 +60,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/registry/limeui/ui/tooltip"
+import { Eyebrow, Num } from "@/registry/limeui/ui/typography"
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -99,6 +100,18 @@ export default function App() {
           <Button variant="link">Link</Button>
           <Button size="sm">Small</Button>
           <Button size="lg">Large</Button>
+        </div>
+      </Section>
+
+      <Section title="Typography">
+        <div className="space-y-2">
+          <Eyebrow>Заработано · август 2026</Eyebrow>
+          <div className="flex items-baseline gap-4">
+            <Num value={150000} className="text-[38px] font-semibold tracking-[-0.03em]" />
+            <Num value={0.42} format={{ style: "percent" }} className="text-sm text-muted-foreground" />
+            <Num className="text-sm text-muted-foreground">12 авг</Num>
+          </div>
+          <Eyebrow size="sm">Мелкий вариант · 9.5px</Eyebrow>
         </div>
       </Section>
 

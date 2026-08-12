@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typography",
+  "title": "Typography",
+  "description": "Eyebrow и Num — носители типографского контракта limeui: Geist Mono только для микро-лейблов и чисел-данных.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@limeui/theme"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/typography.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Geist Mono в limeui семантический, а не декоративный. Eyebrow — одна из\n// трёх его ролей: микро-лейбл над секцией, карточкой или шапкой таблицы.\nconst eyebrowVariants = cva(\n  \"font-mono font-medium uppercase leading-[1.5] tracking-[0.06em] text-muted-foreground\",\n  {\n    variants: {\n      size: {\n        sm: \"text-[9.5px]\",\n        default: \"text-[11px]\",\n        lg: \"text-[12px]\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nfunction Eyebrow({\n  className,\n  size,\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof eyebrowVariants>) {\n  return (\n    <div\n      data-slot=\"eyebrow\"\n      className={cn(eyebrowVariants({ size, className }))}\n      {...props}\n    />\n  )\n}\n\n// Вторая роль mono: любое число, которое пользователь читает как данные —\n// деньги, счётчики, просмотры, даты, проценты, ранги. tabular-nums держит\n// колонки цифр выровненными при смене значения.\nfunction Num({\n  className,\n  value,\n  format,\n  locale,\n  children,\n  ...props\n}: React.ComponentProps<\"span\"> & {\n  value?: number\n  format?: Intl.NumberFormatOptions\n  locale?: string\n}) {\n  return (\n    <span\n      data-slot=\"num\"\n      className={cn(\"font-mono tabular-nums tracking-[-0.02em]\", className)}\n      {...props}\n    >\n      {value === undefined\n        ? children\n        : new Intl.NumberFormat(locale, format).format(value)}\n    </span>\n  )\n}\n\nexport { Eyebrow, Num, eyebrowVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

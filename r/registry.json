@@ -436,6 +436,24 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "description": "Eyebrow и Num — носители типографского контракта limeui: Geist Mono только для микро-лейблов и чисел-данных.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/typography.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
