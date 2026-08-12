@@ -454,6 +454,18 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "Хук: true при ширине окна < 768px. Нужен sidebar для переключения в мобильный режим.",
+      "files": [
+        {
+          "path": "registry/limeui/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
   ]
 }
