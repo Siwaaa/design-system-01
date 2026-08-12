@@ -1,5 +1,5 @@
 // Синхронизирует cssVars итема "theme" в registry.json из
-// registry/linkz/theme/theme.css (единый источник темы), затем
+// registry/limeui/theme/theme.css (единый источник темы), затем
 // `shadcn build` собирает раздаваемые JSON в r/.
 // Запуск: pnpm build:registry
 import { readFileSync, writeFileSync } from "node:fs"
@@ -24,19 +24,24 @@ const theme = registry.items.find((i) => i.name === "theme")
 const light = parseBlock(":root")
 const dark = parseBlock(".dark")
 
-// Именованный радиус (`--radius-*`) должен попасть в бакет `theme` cssVars,
-// а не в `light`/`dark`: только `theme` CLI пишет напрямую в блок
-// `@theme inline` проекта-потребителя, перезаписывая дефолтные shadcn-маппинги
-// (`--radius-lg: var(--radius)` и т.п.). Значения одинаковы в обеих темах.
+// Именованный радиус (`--radius-*`) и шрифты (`--font-*`) должны попасть
+// в бакет `theme` cssVars, а не в `light`/`dark`: только `theme` CLI пишет
+// напрямую в блок `@theme inline` проекта-потребителя, перезаписывая
+// дефолтные shadcn-маппинги (`--radius-lg: var(--radius)` и т.п.).
+// Значения одинаковы в обеих темах.
+const THEME_BUCKET_PREFIXES = ["radius-", "font-"]
+const inThemeBucket = (key) =>
+  THEME_BUCKET_PREFIXES.some((prefix) => key.startsWith(prefix))
+
 const themeVars = {}
 for (const key of Object.keys(light)) {
-  if (key.startsWith("radius-")) {
+  if (inThemeBucket(key)) {
     themeVars[key] = light[key]
     delete light[key]
   }
 }
 for (const key of Object.keys(dark)) {
-  if (key.startsWith("radius-")) delete dark[key]
+  if (inThemeBucket(key)) delete dark[key]
 }
 
 theme.cssVars = { theme: themeVars, light, dark }
