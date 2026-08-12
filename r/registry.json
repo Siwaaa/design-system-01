@@ -387,6 +387,26 @@
       ]
     },
     {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Выезжающая панель на Radix Dialog. Используется sidebar в мобильном режиме.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button"
+      ]
+    },
+    {
       "name": "segmented-control",
       "type": "registry:ui",
       "title": "Segmented Control",
