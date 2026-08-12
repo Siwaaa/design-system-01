@@ -33,7 +33,7 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 | `bar-chart` `chip` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
 | `use-mobile` | registry:hook |
 
-Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: он используется только через `Eyebrow` (микро-лейбл над секцией), `Num` (любое число-данные), лейбл группы в сайдбаре и `StatCaption` (подпись под значением). Прямой `font-mono` в прикладном коде — признак того, что нужен один из этих компонентов.
+Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: `font-mono` стоит вручную только внутри самих компонентов реестра — `Eyebrow`, `Num`, лейбл и бейдж группы в `Sidebar`, шапка `Table`, `StatCaption`, подписи оси `BarChart`, инициалы `Avatar`. Прикладной код `font-mono` руками не ставит — прямой `font-mono` вне компонента реестра является признаком того, что нужен один из них.
 
 ## Дашборд
 

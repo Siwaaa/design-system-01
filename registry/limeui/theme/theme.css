@@ -1,12 +1,13 @@
 /*
  * limeui — theme tokens.
  * Единственный источник значений темы. registry.json собирает cssVars
- * из этого файла скриптом scripts/build-registry.mjs
+ * из этого файла скриптом scripts/build-registry.mjs — правь только здесь.
  * Стиль снят с app.klipni.com (chrome-devtools-mcp, live computed styles).
  * accent: #d9da26 (лайм). Радиус — именованная шкала, не линейный множитель:
  * pill 999px / lg 20px / md 14px / sm 10px.
- * Шрифты: Geist (sans) + Geist Mono. Mono — семантический: только eyebrow,
- * числа-данные и лейблы групп в сайдбаре.
+ * Шрифты: Geist (sans) + Geist Mono. Mono — семантический: font-mono стоит
+ * только внутри компонентов реестра (Eyebrow, Num, Table, Sidebar, Stat,
+ * BarChart, Avatar), не в прикладном коде — см. CLAUDE.md, правило 8.
  */
 
 :root {

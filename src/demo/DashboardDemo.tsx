@@ -116,9 +116,12 @@ export default function DashboardDemo() {
               <span className="text-[18px] font-extrabold leading-none tracking-[-0.04em]">
                 limeui
               </span>
-              <span className="rounded-[3px] bg-foreground px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-[0.08em] text-background">
+              <Eyebrow
+                size="sm"
+                className="inline-block rounded-sm bg-foreground px-1.5 py-0.5 font-semibold tracking-[0.08em] text-background"
+              >
                 beta
-              </span>
+              </Eyebrow>
             </span>
             <SidebarTrigger />
           </div>

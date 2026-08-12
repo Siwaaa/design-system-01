@@ -1,5 +1,10 @@
+import { useState } from "react"
+import { InboxIcon } from "lucide-react"
+
 import { Alert, AlertDescription, AlertTitle } from "@/registry/limeui/ui/alert"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/limeui/ui/avatar"
 import { Badge } from "@/registry/limeui/ui/badge"
+import { BarChart, type BarChartDatum } from "@/registry/limeui/ui/bar-chart"
 import { Button } from "@/registry/limeui/ui/button"
 import {
   Card,
@@ -11,6 +16,13 @@ import {
 } from "@/registry/limeui/ui/card"
 import { Checkbox } from "@/registry/limeui/ui/checkbox"
 import { Chip } from "@/registry/limeui/ui/chip"
+import {
+  DataList,
+  DataListBody,
+  DataListLabel,
+  DataListRow,
+  DataListValue,
+} from "@/registry/limeui/ui/data-list"
 import {
   Dialog,
   DialogContent,
@@ -28,8 +40,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/registry/limeui/ui/dropdown-menu"
+import {
+  EmptyState,
+  EmptyStateDescription,
+  EmptyStateIcon,
+  EmptyStateTitle,
+} from "@/registry/limeui/ui/empty-state"
 import { Input } from "@/registry/limeui/ui/input"
 import { Label } from "@/registry/limeui/ui/label"
+import {
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderContent,
+  PageHeaderDescription,
+  PageHeaderTitle,
+} from "@/registry/limeui/ui/page-header"
+import { Progress } from "@/registry/limeui/ui/progress"
 import {
   Select,
   SelectContent,
@@ -39,6 +65,15 @@ import {
 } from "@/registry/limeui/ui/select"
 import { SegmentedControl, SegmentedControlItem } from "@/registry/limeui/ui/segmented-control"
 import { Separator } from "@/registry/limeui/ui/separator"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/registry/limeui/ui/sheet"
 import { Skeleton } from "@/registry/limeui/ui/skeleton"
 import { Stat, StatLabel, StatValue, StatCaption } from "@/registry/limeui/ui/stat"
 import { Switch } from "@/registry/limeui/ui/switch"
@@ -60,6 +95,23 @@ import {
 } from "@/registry/limeui/ui/tooltip"
 import { Eyebrow, Num } from "@/registry/limeui/ui/typography"
 
+// 7 дней просмотров клипов: пара нулевых дней вперемешку с активными —
+// видно оба состояния столбца (полоска 2px vs заполненный) одновременно.
+const CLIP_VIEWS: BarChartDatum[] = [
+  { label: "05 авг", value: 0 },
+  { label: "06 авг", value: 1200 },
+  { label: "07 авг", value: 4300 },
+  { label: "08 авг", value: 0 },
+  { label: "09 авг", value: 8100 },
+  { label: "10 авг", value: 5600 },
+  { label: "11 авг", value: 9900 },
+]
+
+// Лаймовый квадрат как data:-изображение — гарантированно грузится без сети,
+// чтобы показать успешный AvatarImage рядом с примером неудачной загрузки.
+const AVATAR_IMAGE_SRC =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%23d9da26'/%3E%3C/svg%3E"
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-3">
@@ -70,6 +122,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 export default function ComponentsDemo() {
+  const [selectedDay, setSelectedDay] = useState<string | null>(null)
+
   return (
     <div className="space-y-10">
       <header>
@@ -144,6 +198,87 @@ export default function ComponentsDemo() {
             <StatCaption>в этой доске</StatCaption>
           </Stat>
         </div>
+      </Section>
+
+      <Section title="Avatar">
+        <div className="flex flex-wrap items-center gap-4">
+          <Avatar>
+            <AvatarImage src={AVATAR_IMAGE_SRC} alt="Аня Смирнова" />
+            <AvatarFallback>АС</AvatarFallback>
+          </Avatar>
+          <Avatar size="sm">
+            <AvatarFallback>ПК</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg" ring>
+            <AvatarFallback>ЛГ</AvatarFallback>
+          </Avatar>
+          <Avatar ring>
+            <AvatarImage src="/does-not-exist.jpg" alt="Пример неудачной загрузки" />
+            <AvatarFallback>ФБ</AvatarFallback>
+          </Avatar>
+        </div>
+      </Section>
+
+      <Section title="Progress">
+        <div className="max-w-md space-y-5">
+          <div className="space-y-1.5">
+            <Eyebrow size="sm">Default · 68%</Eyebrow>
+            <Progress value={68} />
+          </div>
+          <div className="space-y-1.5">
+            <Eyebrow size="sm">Primary · 34%</Eyebrow>
+            <Progress value={34} tone="primary" />
+          </div>
+          <div className="space-y-1.5">
+            <Eyebrow size="sm">Small · 52%</Eyebrow>
+            <Progress value={52} size="sm" />
+          </div>
+          <div className="space-y-1.5">
+            <Eyebrow size="sm">Small, primary · 80%</Eyebrow>
+            <Progress value={80} size="sm" tone="primary" />
+          </div>
+          <div className="space-y-1.5">
+            <Eyebrow size="sm">Indeterminate</Eyebrow>
+            <Progress />
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Bar Chart">
+        <div className="max-w-2xl space-y-2.5">
+          <BarChart
+            data={CLIP_VIEWS}
+            formatValue={(value) => `${value.toLocaleString("ru-RU")} просмотров`}
+            onBarClick={(datum) => setSelectedDay(datum.label)}
+          />
+          <p className="text-sm text-muted-foreground">
+            {selectedDay
+              ? `Выбран день: ${selectedDay}`
+              : "Кликните по столбцу, чтобы выбрать день."}
+          </p>
+        </div>
+      </Section>
+
+      <Section title="Data List">
+        <DataList className="max-w-sm">
+          <Eyebrow size="sm" className="mb-2.5">
+            Сводка за неделю
+          </Eyebrow>
+          <DataListBody>
+            <DataListRow>
+              <DataListLabel>Просмотров</DataListLabel>
+              <DataListValue value={284500} />
+            </DataListRow>
+            <DataListRow>
+              <DataListLabel>Заработано</DataListLabel>
+              <DataListValue value={15400} />
+            </DataListRow>
+            <DataListRow>
+              <DataListLabel>Клипов одобрено</DataListLabel>
+              <DataListValue>9 / 11</DataListValue>
+            </DataListRow>
+          </DataListBody>
+        </DataList>
       </Section>
 
       <Section title="Inputs">
@@ -271,6 +406,48 @@ export default function ComponentsDemo() {
         </div>
       </Section>
 
+      <Section title="Empty State">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="rounded-lg border border-border bg-card">
+            <EmptyState>
+              <EmptyStateIcon>
+                <InboxIcon />
+              </EmptyStateIcon>
+              <EmptyStateTitle>Кампаний пока нет</EmptyStateTitle>
+              <EmptyStateDescription>
+                Как только бренд одобрит вашу заявку, кампания появится здесь.
+              </EmptyStateDescription>
+              <Button size="sm" className="mt-1">
+                Найти кампанию
+              </Button>
+            </EmptyState>
+          </div>
+          <div className="rounded-lg border border-border bg-card">
+            <EmptyState>Ничего не найдено по вашему запросу.</EmptyState>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Page Header">
+        <div className="rounded-lg border border-border bg-card p-6">
+          <PageHeader className="mb-0">
+            <PageHeaderContent>
+              <Eyebrow>Кампании</Eyebrow>
+              <PageHeaderTitle>Активные заявки</PageHeaderTitle>
+              <PageHeaderDescription>
+                9 клипов на модерации, 2 кампании ждут вашего отклика.
+              </PageHeaderDescription>
+            </PageHeaderContent>
+            <PageHeaderActions>
+              <Button variant="outline" size="sm">
+                Фильтры
+              </Button>
+              <Button size="sm">Новая заявка</Button>
+            </PageHeaderActions>
+          </PageHeader>
+        </div>
+      </Section>
+
       <Section title="Dialog / Dropdown / Tooltip">
         <div className="flex flex-wrap gap-3">
           <Dialog>
@@ -308,6 +485,25 @@ export default function ComponentsDemo() {
             <TooltipContent>Подсказка из @limeui/tooltip</TooltipContent>
           </Tooltip>
         </div>
+      </Section>
+
+      <Section title="Sheet">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">Открыть панель</Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Настройки уведомлений</SheetTitle>
+              <SheetDescription>
+                Управляйте тем, какие события присылать на почту.
+              </SheetDescription>
+            </SheetHeader>
+            <SheetFooter>
+              <Button>Сохранить</Button>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
       </Section>
 
       <Section title="Skeleton / Separator">
