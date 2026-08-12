@@ -111,7 +111,7 @@ export default function DashboardDemo() {
     <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarHeader>
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 group-data-[collapsible=icon]:justify-center">
             <span className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
               <span className="text-[18px] font-extrabold leading-none tracking-[-0.04em]">
                 limeui
@@ -123,7 +123,10 @@ export default function DashboardDemo() {
                 beta
               </Eyebrow>
             </span>
-            <SidebarTrigger />
+            {/* В свёрнутом виде триггер встаёт на ту же 40-пиксельную
+                колонку, что и иконки меню, иначе в рейле оказывается
+                три разных оптических центра. */}
+            <SidebarTrigger className="group-data-[collapsible=icon]:size-10" />
           </div>
         </SidebarHeader>
 
@@ -158,7 +161,7 @@ export default function DashboardDemo() {
             <Eyebrow size="sm">Баланс</Eyebrow>
             <Num value={TOTAL} className="text-[13px] font-semibold" />
           </div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 group-data-[collapsible=icon]:justify-center">
             <Avatar size="sm">
               <AvatarFallback>АС</AvatarFallback>
             </Avatar>

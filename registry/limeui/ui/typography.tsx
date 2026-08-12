@@ -3,8 +3,9 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-// Geist Mono в limeui семантический, а не декоративный. Eyebrow — одна из
-// трёх его ролей: микро-лейбл над секцией, карточкой или шапкой таблицы.
+// Geist Mono в limeui семантический, а не декоративный. Eyebrow — микро-лейбл
+// над секцией, карточкой или шапкой таблицы; полный список мест, где mono
+// ставится вручную, — в CLAUDE.md, правило 8.
 const eyebrowVariants = cva(
   "font-mono font-medium uppercase leading-[1.5] tracking-[0.06em] text-muted-foreground",
   {

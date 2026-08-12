@@ -407,7 +407,11 @@ function SidebarGroupLabel({
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       className={cn(
-        "flex h-auto shrink-0 items-center rounded-sm px-2.5 pb-1.5 font-mono text-[9.5px] font-medium uppercase tracking-[0.12em] text-foreground-subtle ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        // В свёрнутом виде лейбл убирается схлопыванием высоты, а не
+        // отрицательным отступом: апстримовый `-mt-8` рассчитан на его же
+        // `h-8`, а тут высота `h-auto` (~20px), и константа съедала лишние
+        // 12px, ломая вертикальный ритм между группами.
+        "flex h-auto shrink-0 items-center rounded-sm px-2.5 pb-1.5 font-mono text-[9.5px] font-medium uppercase tracking-[0.12em] text-foreground-subtle ring-sidebar-ring outline-hidden transition-[height,opacity] duration-200 ease-linear group-data-[collapsible=icon]:h-0 group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         className
       )}
       {...props}
@@ -454,7 +458,13 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
     <ul
       data-slot="sidebar-menu"
       data-sidebar="menu"
-      className={cn("flex w-full min-w-0 flex-col gap-0", className)}
+      // `gap-0.5` — как на klipni; `items-center` только в свёрнутом виде,
+      // иначе кнопка 40px прижималась бы к левому краю 43-пиксельной
+      // колонки и вся полоса иконок уезжала на 3px влево.
+      className={cn(
+        "flex w-full min-w-0 flex-col gap-0.5 group-data-[collapsible=icon]:items-center",
+        className
+      )}
       {...props}
     />
   )

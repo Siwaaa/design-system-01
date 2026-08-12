@@ -61,7 +61,8 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   )
 }
 
-// Шапка таблицы — одна из четырёх ролей Geist Mono в limeui.
+// Шапка таблицы — одно из мест, где Geist Mono ставится вручную; полный
+// список — в CLAUDE.md, правило 8.
 function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   return (
     <th
