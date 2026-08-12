@@ -169,6 +169,23 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "files": [
+        {
+          "path": "registry/limeui/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
