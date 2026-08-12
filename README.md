@@ -1,10 +1,12 @@
 # limeui
 
-Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема + 20 компонентов (17 базовых shadcn-примитивов + `SegmentedControl`, `Chip`, `Stat`). Код компонентов копируется в проект — им владеет проект (философия shadcn).
+Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема, хук `use-mobile` и 29 компонентов — 31 итем реестра, состав ниже. Код компонентов копируется в проект — им владеет проект (философия shadcn).
 
 Раздаётся статикой из папки [`r/`](r/) через GitHub raw.
 
 ## Подключение в проект
+
+> В чистом vite-скаффолде `shadcn init` с первой попытки не пройдёт: CLI требует, чтобы Tailwind v4 и алиас `@/*` уже были настроены. Заранее нужны: `@import "tailwindcss";` в главном CSS, плагин `@tailwindcss/vite` и алиас `@` → `./src` в `vite.config.ts`, а также `paths: {"@/*": ["./src/*"]}` в `tsconfig.json` и `tsconfig.app.json`.
 
 ```bash
 # 1. Если в проекте ещё нет shadcn (Vite + Tailwind v4):
@@ -25,11 +27,19 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 
 | Item | Тип |
 |---|---|
-| `theme` | тема: cssVars light/dark, primary #d9da26 (лайм), радиус pill/20px/14px/10px |
-| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
-| `segmented-control` `chip` `stat` | registry:ui — новые компоненты, которых нет в дефолтном shadcn, повторяют паттерны klipni.com |
+| `theme` | тема: cssVars light/dark, primary #d9da26 (лайм), радиус pill/20px/14px/10px, шрифты Geist + Geist Mono |
+| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `sheet` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
+| `avatar` `progress` `sidebar` | registry:ui — примитивы дашборда |
+| `bar-chart` `chip` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
+| `use-mobile` | registry:hook |
 
-Фирменный шрифт — Geist (`@fontsource-variable/geist`); в проект-потребитель он не устанавливается автоматически. Чтобы включить: `pnpm add @fontsource-variable/geist` и `@import "@fontsource-variable/geist";` в главный CSS.
+Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: `font-mono` стоит вручную только внутри самих компонентов реестра — `Eyebrow`, `Num`, лейбл и бейдж группы в `Sidebar`, шапка `Table`, `StatCaption`, подписи оси `BarChart`, инициалы `Avatar`. Прикладной код `font-mono` руками не ставит — прямой `font-mono` вне компонента реестра является признаком того, что нужен один из них.
+
+## Дашборд
+
+`@limeui/sidebar` — канонический shadcn-сайдбар с API апстрима, перекрашенный под klipni: 236px развёрнутый, 68px свёрнутый, группы с mono-лейблами, активный пункт — чёрная плашка. Тянет за собой `sheet`, `use-mobile`, `tooltip`, `input`, `skeleton`, `separator`, `button`.
+
+`@limeui/bar-chart` — столбчатый график за период без единой внешней зависимости: flex-вёрстка, каждый столбец — кнопка с `aria-label`, дни без значения рисуются полоской 2px.
 
 ## Демо
 

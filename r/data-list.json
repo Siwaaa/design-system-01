@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-list",
+  "title": "Data List",
+  "description": "Список «лейбл — значение» на приглушённом фоне. Значения идут через Num, поэтому всегда в Geist Mono с tabular-nums.",
+  "registryDependencies": [
+    "@limeui/theme",
+    "@limeui/typography"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/data-list.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Num } from \"@/registry/limeui/ui/typography\"\n\nfunction DataList({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"data-list\"\n      className={cn(\"rounded-lg bg-muted p-5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DataListBody({ className, ...props }: React.ComponentProps<\"dl\">) {\n  return (\n    <dl\n      data-slot=\"data-list-body\"\n      className={cn(\"flex flex-col gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DataListRow({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"data-list-row\"\n      className={cn(\"flex items-baseline justify-between gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DataListLabel({ className, ...props }: React.ComponentProps<\"dt\">) {\n  return (\n    <dt\n      data-slot=\"data-list-label\"\n      className={cn(\"text-[12px] leading-[1.35] text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\n// Значение всегда идёт через Num — это и есть механизм, которым типографский\n// контракт limeui соблюдается сам собой, без дисциплины на стороне вызова.\nfunction DataListValue({\n  className,\n  ...props\n}: React.ComponentProps<typeof Num>) {\n  return (\n    <dd data-slot=\"data-list-value\" className=\"contents\">\n      <Num\n        className={cn(\n          \"shrink-0 text-[13px] font-semibold whitespace-nowrap\",\n          className\n        )}\n        {...props}\n      />\n    </dd>\n  )\n}\n\nexport { DataList, DataListBody, DataListRow, DataListLabel, DataListValue }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -5,17 +5,22 @@
  * Стиль снят с app.klipni.com (chrome-devtools-mcp, live computed styles).
  * accent: #d9da26 (лайм). Радиус — именованная шкала, не линейный множитель:
  * pill 999px / lg 20px / md 14px / sm 10px.
+ * Шрифты: Geist (sans) + Geist Mono. Mono — семантический: font-mono стоит
+ * только внутри компонентов реестра (Eyebrow, Num, Table, Sidebar, Stat,
+ * BarChart, Avatar), не в прикладном коде — см. CLAUDE.md, правило 8.
  */
 
 :root {
     --background: #f7f7f5;
     --foreground: #0c0c0b;
+    --foreground-subtle: #9c9c95;
     --card: #ffffff;
     --card-foreground: #0c0c0b;
     --popover: #ffffff;
     --popover-foreground: #0c0c0b;
     --primary: #d9da26;
     --primary-foreground: #0c0c0b;
+    --primary-soft: #f4f7b9;
     --secondary: #f1f1ee;
     --secondary-foreground: #0c0c0b;
     --muted: #f1f1ee;
@@ -27,13 +32,24 @@
     --destructive: #d33a2c;
     --border: #e7e7e2;
     --border-strong: #d4d4ce;
+    --border-mute: #efefea;
     --input: #e7e7e2;
     --ring: #0c0c0b;
+    --sidebar: #ffffff;
+    --sidebar-foreground: #0c0c0b;
+    --sidebar-border: #e7e7e2;
+    --sidebar-accent: #f1f1ee;
+    --sidebar-accent-foreground: #0c0c0b;
+    --sidebar-primary: #0c0c0b;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-ring: #0c0c0b;
     --chart-1: #d9da26;
     --chart-2: #1f8a45;
     --chart-3: #6b6b66;
     --chart-4: #0c0c0b;
     --chart-5: #9c9c95;
+    --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
     --radius-pill: 999px;
     --radius-lg: 20px;
     --radius-md: 14px;
@@ -43,12 +59,14 @@
 .dark {
     --background: #0c0c0b;
     --foreground: #f7f7f5;
+    --foreground-subtle: #6b6b66;
     --card: #161615;
     --card-foreground: #f7f7f5;
     --popover: #161615;
     --popover-foreground: #f7f7f5;
     --primary: #d9da26;
     --primary-foreground: #0c0c0b;
+    --primary-soft: #2e2f14;
     --secondary: #232322;
     --secondary-foreground: #f7f7f5;
     --muted: #232322;
@@ -60,8 +78,17 @@
     --destructive: #ef5445;
     --border: #2c2c2a;
     --border-strong: #3a3a37;
+    --border-mute: #232322;
     --input: #2c2c2a;
     --ring: #f7f7f5;
+    --sidebar: #111110;
+    --sidebar-foreground: #f7f7f5;
+    --sidebar-border: #2c2c2a;
+    --sidebar-accent: #232322;
+    --sidebar-accent-foreground: #f7f7f5;
+    --sidebar-primary: #f7f7f5;
+    --sidebar-primary-foreground: #0c0c0b;
+    --sidebar-ring: #f7f7f5;
     --chart-1: #d9da26;
     --chart-2: #3fbd6e;
     --chart-3: #9c9c95;

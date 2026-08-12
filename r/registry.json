@@ -8,8 +8,19 @@
       "type": "registry:theme",
       "title": "limeui Theme",
       "description": "Тема limeui: primary #d9da26 (лайм), нейтральная тёплая серая шкала, именованный радиус (pill/lg/md/sm), без теней в покое. cssVars генерируются из registry/limeui/theme/theme.css скриптом scripts/build-registry.mjs.",
+      "dependencies": [
+        "@fontsource-variable/geist",
+        "@fontsource-variable/geist-mono"
+      ],
+      "css": {
+        "@import \"@fontsource-variable/geist\"": {},
+        "@import \"@fontsource-variable/geist-mono\"": {}
+      },
+      "docs": "Шрифты Geist и Geist Mono установлены как npm-зависимости. Если после установки текст рендерится системным шрифтом — проверьте, что в главном CSS есть строки `@import \"@fontsource-variable/geist\";` и `@import \"@fontsource-variable/geist-mono\";` сразу после `@import \"tailwindcss\";`.",
       "cssVars": {
         "theme": {
+          "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, -apple-system, sans-serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, SFMono-Regular, Menlo, monospace",
           "radius-pill": "999px",
           "radius-lg": "20px",
           "radius-md": "14px",
@@ -18,12 +29,14 @@
         "light": {
           "background": "#f7f7f5",
           "foreground": "#0c0c0b",
+          "foreground-subtle": "#9c9c95",
           "card": "#ffffff",
           "card-foreground": "#0c0c0b",
           "popover": "#ffffff",
           "popover-foreground": "#0c0c0b",
           "primary": "#d9da26",
           "primary-foreground": "#0c0c0b",
+          "primary-soft": "#f4f7b9",
           "secondary": "#f1f1ee",
           "secondary-foreground": "#0c0c0b",
           "muted": "#f1f1ee",
@@ -35,8 +48,17 @@
           "destructive": "#d33a2c",
           "border": "#e7e7e2",
           "border-strong": "#d4d4ce",
+          "border-mute": "#efefea",
           "input": "#e7e7e2",
           "ring": "#0c0c0b",
+          "sidebar": "#ffffff",
+          "sidebar-foreground": "#0c0c0b",
+          "sidebar-border": "#e7e7e2",
+          "sidebar-accent": "#f1f1ee",
+          "sidebar-accent-foreground": "#0c0c0b",
+          "sidebar-primary": "#0c0c0b",
+          "sidebar-primary-foreground": "#ffffff",
+          "sidebar-ring": "#0c0c0b",
           "chart-1": "#d9da26",
           "chart-2": "#1f8a45",
           "chart-3": "#6b6b66",
@@ -46,12 +68,14 @@
         "dark": {
           "background": "#0c0c0b",
           "foreground": "#f7f7f5",
+          "foreground-subtle": "#6b6b66",
           "card": "#161615",
           "card-foreground": "#f7f7f5",
           "popover": "#161615",
           "popover-foreground": "#f7f7f5",
           "primary": "#d9da26",
           "primary-foreground": "#0c0c0b",
+          "primary-soft": "#2e2f14",
           "secondary": "#232322",
           "secondary-foreground": "#f7f7f5",
           "muted": "#232322",
@@ -63,8 +87,17 @@
           "destructive": "#ef5445",
           "border": "#2c2c2a",
           "border-strong": "#3a3a37",
+          "border-mute": "#232322",
           "input": "#2c2c2a",
           "ring": "#f7f7f5",
+          "sidebar": "#111110",
+          "sidebar-foreground": "#f7f7f5",
+          "sidebar-border": "#2c2c2a",
+          "sidebar-accent": "#232322",
+          "sidebar-accent-foreground": "#f7f7f5",
+          "sidebar-primary": "#f7f7f5",
+          "sidebar-primary-foreground": "#0c0c0b",
+          "sidebar-ring": "#f7f7f5",
           "chart-1": "#d9da26",
           "chart-2": "#3fbd6e",
           "chart-3": "#9c9c95",
@@ -279,7 +312,8 @@
         }
       ],
       "registryDependencies": [
-        "@limeui/theme"
+        "@limeui/theme",
+        "@limeui/empty-state"
       ]
     },
     {
@@ -354,6 +388,26 @@
       ]
     },
     {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Выезжающая панель на Radix Dialog. Используется sidebar в мобильном режиме.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button"
+      ]
+    },
+    {
       "name": "segmented-control",
       "type": "registry:ui",
       "title": "Segmented Control",
@@ -400,8 +454,186 @@
           "type": "registry:ui"
         }
       ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "description": "Eyebrow и Num — носители типографского контракта limeui: Geist Mono только для микро-лейблов и чисел-данных.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/typography.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
       "registryDependencies": [
         "@limeui/theme"
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "Хук: true при ширине окна < 768px. Нужен sidebar для переключения в мобильный режим.",
+      "files": [
+        {
+          "path": "registry/limeui/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Сайдбар дашборда: 236px развёрнутый / 68px свёрнутый, группы с mono-лейблами, активный пункт — чёрная плашка. На мобильном открывается как Sheet.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button",
+        "@limeui/input",
+        "@limeui/separator",
+        "@limeui/sheet",
+        "@limeui/skeleton",
+        "@limeui/tooltip",
+        "@limeui/use-mobile"
+      ],
+      "css": {
+        "@utility no-scrollbar": {
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            "display": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Столбчатый график за период без внешних зависимостей: flex-вёрстка, столбец = кнопка с aria-label, нулевые дни — полоска 2px.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Аватар с инициалами в Geist Mono. Размеры 32/40/56, опциональное лаймовое кольцо.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Тонкий pill-прогресс: 3px или 5px, индикатор нейтральный или лаймовый.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ],
+      "css": {
+        "@keyframes limeui-progress-slide": {
+          "0%": {
+            "transform": "translateX(-100%)"
+          },
+          "100%": {
+            "transform": "translateX(300%)"
+          }
+        }
+      }
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "Шапка страницы дашборда: надстрочник + заголовок слева, действия справа.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/page-header.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "Пустое состояние списка или таблицы: иконка, заголовок, пояснение, действие.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
+    },
+    {
+      "name": "data-list",
+      "type": "registry:ui",
+      "title": "Data List",
+      "description": "Список «лейбл — значение» на приглушённом фоне. Значения идут через Num, поэтому всегда в Geist Mono с tabular-nums.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/data-list.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
       ]
     }
   ]

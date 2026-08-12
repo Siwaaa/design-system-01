@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "Аватар с инициалами в Geist Mono. Размеры 32/40/56, опциональное лаймовое кольцо.",
+  "dependencies": [
+    "class-variance-authority",
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "@limeui/theme"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/avatar.tsx",
+      "content": "import * as React from \"react\"\nimport { Avatar as AvatarPrimitive } from \"radix-ui\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Размер шрифта задаётся на корне, чтобы AvatarFallback наследовал его\n// и не приходилось дублировать вариант размера во втором компоненте.\nconst avatarVariants = cva(\n  \"relative flex shrink-0 overflow-hidden rounded-pill\",\n  {\n    variants: {\n      size: {\n        sm: \"size-8 text-[12px]\",\n        default: \"size-10 text-[15px]\",\n        lg: \"size-14 text-[21px]\",\n      },\n      ring: {\n        true: \"ring-2 ring-primary\",\n        false: \"\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n      ring: false,\n    },\n  }\n)\n\nfunction Avatar({\n  className,\n  size,\n  ring,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Root> &\n  VariantProps<typeof avatarVariants>) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      className={cn(avatarVariants({ size, ring, className }))}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarImage({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Image>) {\n  return (\n    <AvatarPrimitive.Image\n      data-slot=\"avatar-image\"\n      className={cn(\"aspect-square size-full object-cover\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarFallback({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(\n        \"flex size-full items-center justify-center rounded-pill bg-muted font-mono font-semibold tracking-[-0.02em] text-muted-foreground select-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarImage, AvatarFallback, avatarVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
