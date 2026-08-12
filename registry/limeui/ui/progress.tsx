@@ -40,9 +40,9 @@ function Progress({
     value <= max
   // Доля считается от max, а не от жёсткой сотни: при max={200} и value={100}
   // полоса должна быть заполнена наполовину, как и говорит aria-valuenow.
-  const percent = determinate
-    ? Math.min(100, Math.max(0, (value / max) * 100))
-    : 0
+  // Отсечение не нужно — determinate уже гарантирует 0 <= value <= max,
+  // а всё, что вне диапазона, Radix сам переводит в indeterminate.
+  const percent = determinate ? (value / max) * 100 : 0
 
   return (
     <ProgressPrimitive.Root
@@ -60,7 +60,10 @@ function Progress({
           // Без отдельного вида indeterminate выглядел бы ровно как 0%:
           // «идёт загрузка» и «ничего не сделано» — разные состояния.
           "data-[state=indeterminate]:w-1/3 data-[state=indeterminate]:animate-[limeui-progress-slide_1.2s_ease-in-out_infinite] data-[state=indeterminate]:transition-none",
-          "motion-reduce:animate-none"
+          // Специфичность data-[state=indeterminate]:animate-[…] равна 0,2,0
+          // и без важности перебила бы этот сброс — медиазапрос приоритета
+          // не добавляет, оба правила лежат в одном @layer utilities.
+          "motion-reduce:animate-none!"
         )}
         style={
           determinate ? { transform: `translateX(-${100 - percent}%)` } : undefined
