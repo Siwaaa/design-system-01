@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state",
+  "title": "Empty State",
+  "description": "Пустое состояние списка или таблицы: иконка, заголовок, пояснение, действие.",
+  "registryDependencies": [
+    "@limeui/theme"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/empty-state.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction EmptyState({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"empty-state\"\n      className={cn(\n        \"flex flex-col items-center justify-center gap-3 px-5 py-10 text-center text-[13px] text-muted-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction EmptyStateIcon({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"empty-state-icon\"\n      className={cn(\n        \"text-foreground-subtle [&_svg]:size-6 [&_svg]:shrink-0\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction EmptyStateTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"empty-state-title\"\n      className={cn(\"text-[14px] font-semibold text-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction EmptyStateDescription({\n  className,\n  ...props\n}: React.ComponentProps<\"p\">) {\n  return (\n    <p\n      data-slot=\"empty-state-description\"\n      className={cn(\"max-w-[46ch] text-[13px] text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

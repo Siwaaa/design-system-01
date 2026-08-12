@@ -599,6 +599,21 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "Пустое состояние списка или таблицы: иконка, заголовок, пояснение, действие.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
