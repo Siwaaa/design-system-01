@@ -6,6 +6,8 @@
 
 ## Подключение в проект
 
+> В чистом vite-скаффолде `shadcn init` с первой попытки не пройдёт: CLI требует, чтобы Tailwind v4 и алиас `@/*` уже были настроены. Заранее нужны: `@import "tailwindcss";` в главном CSS, плагин `@tailwindcss/vite` и алиас `@` → `./src` в `vite.config.ts`, а также `paths: {"@/*": ["./src/*"]}` в `tsconfig.json` и `tsconfig.app.json`.
+
 ```bash
 # 1. Если в проекте ещё нет shadcn (Vite + Tailwind v4):
 pnpm dlx shadcn@latest init -b radix -p nova -y
@@ -25,11 +27,19 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 
 | Item | Тип |
 |---|---|
-| `theme` | тема: cssVars light/dark, primary #d9da26 (лайм), радиус pill/20px/14px/10px |
-| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
-| `segmented-control` `chip` `stat` | registry:ui — новые компоненты, которых нет в дефолтном shadcn, повторяют паттерны klipni.com |
+| `theme` | тема: cssVars light/dark, primary #d9da26 (лайм), радиус pill/20px/14px/10px, шрифты Geist + Geist Mono |
+| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `sheet` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
+| `avatar` `progress` `sidebar` | registry:ui — примитивы дашборда |
+| `bar-chart` `chip` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
+| `use-mobile` | registry:hook |
 
-Фирменный шрифт — Geist (`@fontsource-variable/geist`); в проект-потребитель он не устанавливается автоматически. Чтобы включить: `pnpm add @fontsource-variable/geist` и `@import "@fontsource-variable/geist";` в главный CSS.
+Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: он используется только через `Eyebrow` (микро-лейбл над секцией), `Num` (любое число-данные) и шапку таблицы. Прямой `font-mono` в прикладном коде — признак того, что нужен один из этих компонентов.
+
+## Дашборд
+
+`@limeui/sidebar` — канонический shadcn-сайдбар с API апстрима, перекрашенный под klipni: 236px развёрнутый, 68px свёрнутый, группы с mono-лейблами, активный пункт — чёрная плашка. Тянет за собой `sheet`, `use-mobile`, `tooltip`, `input`, `skeleton`, `separator`, `button`.
+
+`@limeui/bar-chart` — столбчатый график за период без единой внешней зависимости: flex-вёрстка, каждый столбец — кнопка с `aria-label`, дни без значения рисуются полоской 2px.
 
 ## Демо
 

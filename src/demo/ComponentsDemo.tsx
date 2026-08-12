@@ -74,7 +74,7 @@ export default function ComponentsDemo() {
     <div className="space-y-10">
       <header>
         <h1 className="text-2xl font-bold tracking-tight">limeui</h1>
-        <p className="text-muted-foreground">Реестр @limeui — тема + 20 компонентов, в стиле klipni.com</p>
+        <p className="text-muted-foreground">Реестр @limeui — тема, хук и 29 компонентов (31 итем), в стиле klipni.com</p>
       </header>
 
       <Section title="Button">
