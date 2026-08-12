@@ -584,6 +584,21 @@
           }
         }
       }
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "Шапка страницы дашборда: надстрочник + заголовок слева, действия справа.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/page-header.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
