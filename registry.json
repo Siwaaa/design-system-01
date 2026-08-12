@@ -296,6 +296,24 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "files": [
+        {
+          "path": "registry/limeui/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
