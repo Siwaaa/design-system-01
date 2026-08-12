@@ -350,6 +350,24 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:ui",
+      "title": "Segmented Control",
+      "description": "Pill-переключатель режимов (напр. «Я креатор / Я бренд» на klipni.com) поверх Radix RadioGroup.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/segmented-control.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
