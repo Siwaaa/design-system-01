@@ -521,6 +521,21 @@
           }
         }
       }
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Столбчатый график за период без внешних зависимостей: flex-вёрстка, столбец = кнопка с aria-label, нулевые дни — полоска 2px.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
