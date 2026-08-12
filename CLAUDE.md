@@ -1,11 +1,11 @@
-# Linkz Design System
+# limeui Design System
 
-Собственный shadcn-реестр `@linkz`: тема + базовые UI-компоненты, раздаётся через GitHub raw из папки `r/`.
+Собственный shadcn-реестр `@limeui`: тема + базовые UI-компоненты в стиле klipni.com, раздаётся через GitHub raw из папки `r/`.
 
 ## Структура
 
-- `registry/linkz/theme/theme.css` — **единственный источник темы** (light/dark, primary #2563eb, radius 0.75rem). Правки темы — только здесь.
-- `registry/linkz/ui/*.tsx` — исходники компонентов реестра. Импорты внутри — через `@/registry/linkz/ui/...` (CLI переписывает пути при установке в проект).
+- `registry/limeui/theme/theme.css` — **единственный источник темы** (light/dark, primary #d9da26 — лайм, именованный радиус pill/lg/md/sm вместо линейной шкалы). Правки темы — только здесь.
+- `registry/limeui/ui/*.tsx` — исходники компонентов реестра. Импорты внутри — через `@/registry/limeui/ui/...` (CLI переписывает пути при установке в проект).
 - `registry.json` — каталог реестра. `cssVars` итема `theme` **генерируются** из theme.css скриптом — руками не править.
 - `r/` — собранный выход `shadcn build`. Коммитится, потому что раздаётся через raw.githubusercontent.com.
 - `src/App.tsx` — демо-страница всех компонентов (`pnpm dev`).
@@ -13,6 +13,8 @@
 ## Правила
 
 1. После любого изменения в `registry/` или `registry.json` — запустить `pnpm build:registry` (синкает тему в registry.json и пересобирает `r/`) и закоммитить `r/` вместе с исходниками. Иначе потребители получат старую версию.
-2. Новый компонент: поставить канонический (`pnpm dlx shadcn@latest add <имя>` кладёт в `src/components/ui/`), перенести файл в `registry/linkz/ui/`, заменить импорты `@/components/ui/` → `@/registry/linkz/ui/`, добавить item в `registry.json` (dependencies — npm-пакеты из импортов; registryDependencies — `@linkz/theme` + внутренние `@linkz/<имя>`), показать на демо-странице, `pnpm build:registry`.
+2. Новый компонент: поставить канонический (`pnpm dlx shadcn@latest add <имя>` кладёт в `src/components/ui/`), перенести файл в `registry/limeui/ui/`, заменить импорты `@/components/ui/` → `@/registry/limeui/ui/`, добавить item в `registry.json` (dependencies — npm-пакеты из импортов; registryDependencies — `@limeui/theme` + внутренние `@limeui/<имя>`), показать на демо-странице, `pnpm build:registry`.
 3. Проверка перед пушем: `pnpm build` (tsc + vite) проходит, демо-страница ок в обеих темах.
-4. Стиль shadcn: `radix-nova` (CLI 3.x; radix-ui единым пакетом, иконки lucide).
+4. Стиль shadcn: `radix-nova` (CLI 3.x; `radix-ui` единым пакетом, иконки lucide).
+5. Радиус — именованные токены, НЕ линейная шкала: `rounded-pill` (999px, все интерактивные контролы), `rounded-lg` (20px, карточки/основные инпуты), `rounded-md` (14px, textarea/floating-меню), `rounded-sm` (10px, вложенные элементы). Тени в покое запрещены везде, кроме hover/active у `Button` variant `default`.
+6. `src/lib/utils.ts` не раздаётся реестром — `cn()` там расширен через `extendTailwindMerge` (rounded-группа знает про `pill`), потому что дефолтный `tailwind-merge` не резолвит конфликт `rounded-pill` vs `rounded-lg/md/sm`. Известное ограничение: проекты-потребители, не скопировавшие это расширение из `src/lib/utils.ts`, могут ненадёжно переопределять `rounded-pill` через `className`.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat",
+  "title": "Stat",
+  "description": "Лейбл + крупное число для баланс/стат-плиток (как «ТЕКУЩИЙ БАЛАНС / 0 ₽» на klipni.com).",
+  "registryDependencies": [
+    "@limeui/theme"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/stat.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Stat({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"stat\" className={cn(\"flex flex-col gap-1.5\", className)} {...props} />\n  )\n}\n\nfunction StatLabel({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-label\"\n      className={cn(\n        \"text-xs font-medium tracking-[0.08em] text-muted-foreground uppercase\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction StatValue({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-value\"\n      className={cn(\"text-3xl font-semibold tracking-tight text-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Stat, StatLabel, StatValue }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
