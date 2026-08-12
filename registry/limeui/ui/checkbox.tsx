@@ -12,7 +12,10 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "peer size-5 shrink-0 rounded-md border border-border bg-secondary outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background",
+        // rounded-[6px]: сознательное исключение из именованной 4-токенной шкалы —
+        // на боксе size-5 (20px) даже rounded-sm (10px) визуально клэмпится в круг,
+        // неотличимый от radio.
+        "peer size-5 shrink-0 rounded-[6px] border border-border bg-secondary outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background",
         className
       )}
       {...props}

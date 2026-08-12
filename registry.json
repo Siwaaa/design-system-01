@@ -9,6 +9,12 @@
       "title": "limeui Theme",
       "description": "Тема limeui: primary #d9da26 (лайм), нейтральная тёплая серая шкала, именованный радиус (pill/lg/md/sm), без теней в покое. cssVars генерируются из registry/limeui/theme/theme.css скриптом scripts/build-registry.mjs.",
       "cssVars": {
+        "theme": {
+          "radius-pill": "999px",
+          "radius-lg": "20px",
+          "radius-md": "14px",
+          "radius-sm": "10px"
+        },
         "light": {
           "background": "#f7f7f5",
           "foreground": "#0c0c0b",
@@ -35,11 +41,7 @@
           "chart-2": "#1f8a45",
           "chart-3": "#6b6b66",
           "chart-4": "#0c0c0b",
-          "chart-5": "#9c9c95",
-          "radius-pill": "999px",
-          "radius-lg": "20px",
-          "radius-md": "14px",
-          "radius-sm": "10px"
+          "chart-5": "#9c9c95"
         },
         "dark": {
           "background": "#0c0c0b",

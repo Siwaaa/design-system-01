@@ -19,6 +19,8 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 
 `@limeui/theme` подтягивается автоматически как зависимость любого компонента — отдельно ставить не обязательно.
 
+> `src/lib/utils.ts` не раздаётся реестром (ожидается, что он уже есть после `shadcn init`). Если хотите надёжно переопределять `rounded-pill` через `className`, расширьте свой `cn()` через `extendTailwindMerge` так же, как в этом репозитории (`src/lib/utils.ts`) — иначе `rounded-pill` может конфликтовать с другими `rounded-*` непредсказуемо.
+
 ## Состав
 
 | Item | Тип |

@@ -17,3 +17,4 @@
 3. Проверка перед пушем: `pnpm build` (tsc + vite) проходит, демо-страница ок в обеих темах.
 4. Стиль shadcn: `radix-nova` (CLI 3.x; `radix-ui` единым пакетом, иконки lucide).
 5. Радиус — именованные токены, НЕ линейная шкала: `rounded-pill` (999px, все интерактивные контролы), `rounded-lg` (20px, карточки/основные инпуты), `rounded-md` (14px, textarea/floating-меню), `rounded-sm` (10px, вложенные элементы). Тени в покое запрещены везде, кроме hover/active у `Button` variant `default`.
+6. `src/lib/utils.ts` не раздаётся реестром — `cn()` там расширен через `extendTailwindMerge` (rounded-группа знает про `pill`), потому что дефолтный `tailwind-merge` не резолвит конфликт `rounded-pill` vs `rounded-lg/md/sm`. Известное ограничение: проекты-потребители, не скопировавшие это расширение из `src/lib/utils.ts`, могут ненадёжно переопределять `rounded-pill` через `className`.

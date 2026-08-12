@@ -20,8 +20,27 @@ function parseBlock(selector) {
 
 const registry = JSON.parse(readFileSync("registry.json", "utf8"))
 const theme = registry.items.find((i) => i.name === "theme")
-theme.cssVars = { light: parseBlock(":root"), dark: parseBlock(".dark") }
+
+const light = parseBlock(":root")
+const dark = parseBlock(".dark")
+
+// Именованный радиус (`--radius-*`) должен попасть в бакет `theme` cssVars,
+// а не в `light`/`dark`: только `theme` CLI пишет напрямую в блок
+// `@theme inline` проекта-потребителя, перезаписывая дефолтные shadcn-маппинги
+// (`--radius-lg: var(--radius)` и т.п.). Значения одинаковы в обеих темах.
+const themeVars = {}
+for (const key of Object.keys(light)) {
+  if (key.startsWith("radius-")) {
+    themeVars[key] = light[key]
+    delete light[key]
+  }
+}
+for (const key of Object.keys(dark)) {
+  if (key.startsWith("radius-")) delete dark[key]
+}
+
+theme.cssVars = { theme: themeVars, light, dark }
 writeFileSync("registry.json", JSON.stringify(registry, null, 2) + "\n")
 console.log(
-  `theme: ${Object.keys(theme.cssVars.light).length} light / ${Object.keys(theme.cssVars.dark).length} dark переменных`
+  `theme: ${Object.keys(theme.cssVars.theme).length} theme / ${Object.keys(theme.cssVars.light).length} light / ${Object.keys(theme.cssVars.dark).length} dark переменных`
 )
