@@ -486,6 +486,41 @@
           "type": "registry:hook"
         }
       ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Сайдбар дашборда: 236px развёрнутый / 68px свёрнутый, группы с mono-лейблами, активный пункт — чёрная плашка. На мобильном открывается как Sheet.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button",
+        "@limeui/input",
+        "@limeui/separator",
+        "@limeui/sheet",
+        "@limeui/skeleton",
+        "@limeui/tooltip",
+        "@limeui/use-mobile"
+      ],
+      "css": {
+        "@utility no-scrollbar": {
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            "display": "none"
+          }
+        }
+      }
     }
   ]
 }
