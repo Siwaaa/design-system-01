@@ -386,6 +386,21 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat",
+      "description": "Лейбл + крупное число для баланс/стат-плиток (как «ТЕКУЩИЙ БАЛАНС / 0 ₽» на klipni.com).",
+      "files": [
+        {
+          "path": "registry/limeui/ui/stat.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
