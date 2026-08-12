@@ -3,13 +3,17 @@
   "name": "stat",
   "title": "Stat",
   "description": "Лейбл + крупное число для баланс/стат-плиток (как «ТЕКУЩИЙ БАЛАНС / 0 ₽» на klipni.com).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
   "registryDependencies": [
-    "@limeui/theme"
+    "@limeui/theme",
+    "@limeui/typography"
   ],
   "files": [
     {
       "path": "registry/limeui/ui/stat.tsx",
-      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Stat({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"stat\" className={cn(\"flex flex-col gap-1.5\", className)} {...props} />\n  )\n}\n\nfunction StatLabel({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-label\"\n      className={cn(\n        \"text-xs font-medium tracking-[0.08em] text-muted-foreground uppercase\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction StatValue({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-value\"\n      className={cn(\"text-3xl font-semibold tracking-tight text-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Stat, StatLabel, StatValue }\n",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Eyebrow, Num } from \"@/registry/limeui/ui/typography\"\n\nconst statVariants = cva(\"flex flex-col\", {\n  variants: {\n    variant: {\n      plain: \"gap-1.5\",\n      card: \"gap-3 rounded-lg border border-border bg-card px-6 py-5\",\n    },\n  },\n  defaultVariants: {\n    variant: \"plain\",\n  },\n})\n\nfunction Stat({\n  className,\n  variant,\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof statVariants>) {\n  return (\n    <div\n      data-slot=\"stat\"\n      className={cn(statVariants({ variant, className }))}\n      {...props}\n    />\n  )\n}\n\nfunction StatLabel({\n  className,\n  ...props\n}: React.ComponentProps<typeof Eyebrow>) {\n  return <Eyebrow data-slot=\"stat-label\" className={className} {...props} />\n}\n\nfunction StatValue({ className, ...props }: React.ComponentProps<typeof Num>) {\n  return (\n    <Num\n      data-slot=\"stat-value\"\n      className={cn(\n        \"text-[38px] font-semibold leading-[1] tracking-[-0.03em] text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction StatCaption({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"stat-caption\"\n      className={cn(\n        \"font-mono text-[11px] tabular-nums text-muted-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Stat, StatLabel, StatValue, StatCaption, statVariants }\n",
       "type": "registry:ui"
     }
   ],

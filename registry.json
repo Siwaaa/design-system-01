@@ -454,8 +454,12 @@
           "type": "registry:ui"
         }
       ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
       "registryDependencies": [
-        "@limeui/theme"
+        "@limeui/theme",
+        "@limeui/typography"
       ]
     },
     {

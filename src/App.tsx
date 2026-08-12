@@ -43,7 +43,7 @@ import {
 import { SegmentedControl, SegmentedControlItem } from "@/registry/limeui/ui/segmented-control"
 import { Separator } from "@/registry/limeui/ui/separator"
 import { Skeleton } from "@/registry/limeui/ui/skeleton"
-import { Stat, StatLabel, StatValue } from "@/registry/limeui/ui/stat"
+import { Stat, StatLabel, StatValue, StatCaption } from "@/registry/limeui/ui/stat"
 import { Switch } from "@/registry/limeui/ui/switch"
 import {
   Table,
@@ -141,14 +141,21 @@ export default function App() {
       </Section>
 
       <Section title="Stat">
-        <div className="flex flex-wrap gap-10">
-          <Stat>
-            <StatLabel>Текущий баланс</StatLabel>
-            <StatValue>150 000 ₽</StatValue>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Stat variant="card">
+            <StatLabel size="sm">Креаторов</StatLabel>
+            <StatValue value={2603} />
+            <StatCaption>на платформе</StatCaption>
           </Stat>
-          <Stat>
-            <StatLabel>Клипов</StatLabel>
-            <StatValue>7</StatValue>
+          <Stat variant="card">
+            <StatLabel size="sm">Просмотры</StatLabel>
+            <StatValue>11,1 млн</StatValue>
+            <StatCaption>на принятых клипах</StatCaption>
+          </Stat>
+          <Stat variant="card">
+            <StatLabel size="sm">Заработано</StatLabel>
+            <StatValue>113 тыс ₽</StatValue>
+            <StatCaption>в этой доске</StatCaption>
           </Stat>
         </div>
       </Section>
