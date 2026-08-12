@@ -368,6 +368,24 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "Переключаемая pill-кнопка для тегов и фильтров поверх Radix Toggle.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/chip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
