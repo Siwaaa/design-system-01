@@ -186,6 +186,23 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "files": [
+        {
+          "path": "registry/limeui/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
