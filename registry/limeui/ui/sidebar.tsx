@@ -229,7 +229,12 @@ function Sidebar({
         data-slot="sidebar-container"
         data-side={side}
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+          // раскладка
+          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) md:flex",
+          // анимация выезда
+          "transition-[left,right,width] duration-200 ease-linear",
+          // положение по стороне и уезд за край в режиме offcanvas
+          "data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
           // Adjust the padding for floating and inset variants.
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
@@ -241,7 +246,15 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border"
+          className={cn(
+            // раскладка
+            "flex size-full flex-col",
+            // оформление. Апстримовая тень убрана: правило 7 — поверхность
+            // в потоке держит глубину фоном и границей, а не тенью.
+            // (Имена классов в комментариях не писать: Tailwind сканирует
+            // сырой текст файла и сгенерирует утилиту заново.)
+            "bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border"
+          )}
         >
           {children}
         </div>
@@ -263,7 +276,7 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon-sm"
-      className={cn(className)}
+      className={className}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -288,9 +301,14 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
-        "absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
+        // раскладка — невидимая полоса-хваталка вдоль края сайдбара
+        "absolute inset-y-0 z-20 hidden w-4 sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 group-data-[side=left]:-right-4 group-data-[side=right]:left-0",
+        // оформление — сама линия рисуется через ::after
+        "transition-all ease-linear after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border",
+        // курсор по стороне и состоянию
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+        // режим offcanvas
         "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
@@ -306,7 +324,14 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
     <main
       data-slot="sidebar-inset"
       className={cn(
-        "relative flex w-full flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        // раскладка
+        "relative flex w-full flex-1 flex-col",
+        // оформление
+        "bg-background",
+        // вариант inset. Апстримовые радиус и тень заменены: правило 5 знает
+        // только шкалу pill/lg/md/sm, правило 7 запрещает тень у поверхности
+        // в потоке.
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-lg md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
         className
       )}
       {...props}
@@ -407,11 +432,17 @@ function SidebarGroupLabel({
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       className={cn(
-        // В свёрнутом виде лейбл убирается схлопыванием высоты, а не
-        // отрицательным отступом: апстримовый `-mt-8` рассчитан на его же
+        // раскладка
+        "flex h-auto shrink-0 items-center px-2.5 pb-1.5 [&>svg]:size-4 [&>svg]:shrink-0",
+        // оформление — одно из восьми мест, где mono ставится вручную
+        "rounded-sm font-mono text-[9.5px] font-medium uppercase tracking-[0.12em] text-foreground-subtle ring-sidebar-ring outline-hidden",
+        // свёрнутый рейл: лейбл убирается схлопыванием высоты, а не
+        // отрицательным отступом — апстримовый `-mt-8` рассчитан на его же
         // `h-8`, а тут высота `h-auto` (~20px), и константа съедала лишние
         // 12px, ломая вертикальный ритм между группами.
-        "flex h-auto shrink-0 items-center rounded-sm px-2.5 pb-1.5 font-mono text-[9.5px] font-medium uppercase tracking-[0.12em] text-foreground-subtle ring-sidebar-ring outline-hidden transition-[height,opacity] duration-200 ease-linear group-data-[collapsible=icon]:h-0 group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "transition-[height,opacity] duration-200 ease-linear group-data-[collapsible=icon]:h-0 group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:opacity-0",
+        // состояния
+        "focus-visible:ring-2",
         className
       )}
       {...props}
@@ -431,7 +462,12 @@ function SidebarGroupAction({
       data-slot="sidebar-group-action"
       data-sidebar="group-action"
       className={cn(
-        "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-sm p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+        // раскладка — `after:` расширяет зону нажатия на тач-экранах
+        "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center p-0 after:absolute after:-inset-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+        // оформление
+        "rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform",
+        // состояния
+        "group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2",
         className
       )}
       {...props}
@@ -481,25 +517,33 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
   )
 }
 
-// В свёрнутом виде подпись уходит в `sr-only`, а не просто схлопывается по
-// ширине: нулевой по ширине span остаётся флекс-элементом, из-за чего между
-// ним и иконкой продолжает действовать gap, и центрируется блок «иконка +
-// gap», а не сама иконка — она уезжала на 5px влево от оси рейла. `sr-only`
-// выносит подпись из потока (position: absolute), сохраняя доступное имя
-// кнопки для скринридеров.
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button group/menu-button flex w-full items-center gap-2.5 overflow-hidden rounded-sm px-2.5 py-2 text-left text-[13px] font-medium text-muted-foreground ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:[&>span:last-child]:sr-only hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-primary data-active:font-medium data-active:text-sidebar-primary-foreground data-active:hover:bg-sidebar-primary data-active:hover:text-sidebar-primary-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+  [
+    // раскладка
+    "peer/menu-button group/menu-button flex w-full items-center gap-2.5 overflow-hidden px-2.5 py-2 text-left group-has-data-[sidebar=menu-action]/menu-item:pr-8 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+    // оформление
+    "rounded-sm text-[13px] font-medium text-muted-foreground ring-sidebar-ring outline-hidden transition-[width,height,padding]",
+    // свёрнутый рейл. Подпись уходит в `sr-only`, а не схлопывается по ширине:
+    // нулевой по ширине span остаётся флекс-элементом, из-за чего между ним и
+    // иконкой продолжает действовать gap, и центрируется блок «иконка + gap»,
+    // а не сама иконка — она уезжала на 5px влево от оси рейла. `sr-only`
+    // выносит подпись из потока, сохраняя доступное имя кнопки.
+    "group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:[&>span:last-child]:sr-only",
+    // состояния
+    "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-primary data-active:text-sidebar-primary-foreground data-active:hover:bg-sidebar-primary data-active:hover:text-sidebar-primary-foreground",
+  ],
   {
     variants: {
       variant: {
-        default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+        // Пусто намеренно: hover-состояние по умолчанию уже описано в базе.
+        default: "",
         outline:
           "bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
       },
       size: {
-        default: "h-auto text-[13px]",
+        default: "h-auto",
         sm: "h-auto py-1.5 text-[12px]",
-        lg: "h-12 text-[13px] group-data-[collapsible=icon]:p-0!",
+        lg: "h-12 group-data-[collapsible=icon]:p-0!",
       },
     },
     defaultVariants: {
@@ -575,9 +619,14 @@ function SidebarMenuAction({
       data-slot="sidebar-menu-action"
       data-sidebar="menu-action"
       className={cn(
-        "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-sm p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0 peer-data-active/menu-button:text-sidebar-primary-foreground",
+        // раскладка — `after:` расширяет зону нажатия на тач-экранах
+        "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+        // оформление
+        "rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform",
+        // состояния — про отсутствие `peer-hover`-перекраски см. SidebarMenuBadge
+        "group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 peer-data-active/menu-button:text-sidebar-primary-foreground",
         showOnHover &&
-          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0 peer-data-active/menu-button:text-sidebar-primary-foreground",
+          "md:opacity-0 group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 aria-expanded:opacity-100",
         className
       )}
       {...props}
@@ -594,7 +643,18 @@ function SidebarMenuBadge({
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       className={cn(
-        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-sm px-1 font-mono text-[11px] font-medium text-sidebar-foreground tabular-nums select-none group-data-[collapsible=icon]:hidden peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 peer-data-active/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-primary-foreground",
+        // раскладка
+        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center px-1 select-none peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1",
+        // оформление — одно из восьми мест, где mono ставится вручную
+        "rounded-sm font-mono text-[11px] font-medium text-sidebar-foreground tabular-nums",
+        // состояния: перекраски на hover здесь намеренно нет. `peer-hover`
+        // имеет специфичность 0,2,0 (`:hover` — настоящий псевдокласс)
+        // против 0,1,0 у `peer-data-active` (data-атрибут Tailwind заворачивает
+        // в `:where()`), поэтому она выигрывала независимо от порядка и красила
+        // бейдж активного пункта в цвет его же фона — контраст 1:1. Для
+        // неактивных пунктов она всё равно была пустышкой: токены
+        // `--sidebar-foreground` и `--sidebar-accent-foreground` равны.
+        "group-data-[collapsible=icon]:hidden peer-data-active/menu-button:text-sidebar-primary-foreground",
         className
       )}
       {...props}
@@ -646,7 +706,12 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
       data-slot="sidebar-menu-sub"
       data-sidebar="menu-sub"
       className={cn(
-        "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden",
+        // раскладка
+        "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 px-2.5 py-0.5",
+        // оформление — вертикальная линия связи с родительским пунктом
+        "border-l border-sidebar-border",
+        // состояния
+        "group-data-[collapsible=icon]:hidden",
         className
       )}
       {...props}
@@ -688,7 +753,12 @@ function SidebarMenuSubButton({
       data-size={size}
       data-active={isActive}
       className={cn(
-        "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-sm px-2.5 text-sidebar-foreground ring-sidebar-ring outline-hidden group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[size=md]:text-sm data-[size=sm]:text-xs data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground",
+        // раскладка
+        "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden px-2.5 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+        // оформление
+        "rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden [&>svg]:text-sidebar-accent-foreground data-[size=md]:text-sm data-[size=sm]:text-xs",
+        // состояния
+        "group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground",
         className
       )}
       {...props}

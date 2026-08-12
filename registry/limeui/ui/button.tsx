@@ -5,12 +5,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill text-sm font-semibold tracking-tight select-none transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+  [
+    // раскладка
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    // оформление
+    "rounded-pill text-sm font-semibold tracking-tight select-none transition-colors",
+    // состояния
+    "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+  ],
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground transition-[transform,box-shadow,filter] duration-150 ease-out hover:brightness-95 hover:-translate-y-px hover:shadow-[0_8px_20px_-8px_rgb(12_12_11_/_0.22)] active:translate-y-0 active:scale-[0.97] active:shadow-none",
+        // Единственная тень в покое-адъяцентном состоянии во всём реестре:
+        // подъём основной кнопки на hover — заявленное исключение из правила 7.
+        default: [
+          "bg-primary text-primary-foreground",
+          "transition-[transform,box-shadow,filter] duration-150 ease-out",
+          "hover:brightness-95 hover:-translate-y-px hover:shadow-[0_8px_20px_-8px_rgb(12_12_11_/_0.22)] active:translate-y-0 active:scale-[0.97] active:shadow-none",
+        ],
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/70 active:bg-secondary/60",
         outline:
