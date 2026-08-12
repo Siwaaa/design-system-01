@@ -536,6 +536,25 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Аватар с инициалами в Geist Mono. Размеры 32/40/56, опциональное лаймовое кольцо.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
