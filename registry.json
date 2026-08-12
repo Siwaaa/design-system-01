@@ -555,6 +555,25 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Тонкий pill-прогресс: 3px или 5px, индикатор нейтральный или лаймовый.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
