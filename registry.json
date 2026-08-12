@@ -312,7 +312,8 @@
         }
       ],
       "registryDependencies": [
-        "@limeui/theme"
+        "@limeui/theme",
+        "@limeui/empty-state"
       ]
     },
     {

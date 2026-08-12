@@ -49,6 +49,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableEmpty,
   TableHead,
   TableHeader,
   TableRow,
@@ -232,31 +233,49 @@ export default function App() {
       </Section>
 
       <Section title="Table">
-        <Table className="max-w-md">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Кампания</TableHead>
-              <TableHead>Статус</TableHead>
-              <TableHead className="text-right">Ставка</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Gloox</TableCell>
-              <TableCell>
-                <Badge variant="success">Активна</Badge>
-              </TableCell>
-              <TableCell className="text-right">150 000 ₽</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Luminary</TableCell>
-              <TableCell>
-                <Badge variant="secondary">Скоро</Badge>
-              </TableCell>
-              <TableCell className="text-right">200 000 ₽</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        <div className="max-w-2xl space-y-6">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Кампания</TableHead>
+                <TableHead>Статус</TableHead>
+                <TableHead className="text-right">Ставка</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Gloox</TableCell>
+                <TableCell>
+                  <Badge variant="success">Активна</Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Num value={150000} /> ₽
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Luminary</TableCell>
+                <TableCell>
+                  <Badge variant="secondary">Скоро</Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Num value={200000} /> ₽
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Кампания</TableHead>
+                <TableHead>Статус</TableHead>
+                <TableHead className="text-right">Ставка</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableEmpty colSpan={3}>Нет кампаний</TableEmpty>
+            </TableBody>
+          </Table>
+        </div>
       </Section>
 
       <Section title="Dialog / Dropdown / Tooltip">

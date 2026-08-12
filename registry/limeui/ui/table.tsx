@@ -1,10 +1,14 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { EmptyState } from "@/registry/limeui/ui/empty-state"
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
-    <div data-slot="table-container" className="relative w-full overflow-x-auto">
+    <div
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto rounded-lg border border-border bg-card"
+    >
       <table
         data-slot="table"
         className={cn("w-full caption-bottom text-sm", className)}
@@ -18,7 +22,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b [&_tr]:border-border", className)}
+      className={cn("bg-muted [&_tr]:border-b [&_tr]:border-border", className)}
       {...props}
     />
   )
@@ -38,7 +42,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
   return (
     <tfoot
       data-slot="table-footer"
-      className={cn("border-t border-border bg-secondary font-medium", className)}
+      className={cn("border-t border-border bg-muted font-medium", className)}
       {...props}
     />
   )
@@ -49,7 +53,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
     <tr
       data-slot="table-row"
       className={cn(
-        "border-b border-border transition-colors hover:bg-secondary/60 data-[state=selected]:bg-secondary",
+        "border-b border-border transition-colors hover:bg-muted/60 data-[state=selected]:bg-muted",
         className
       )}
       {...props}
@@ -57,12 +61,13 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   )
 }
 
+// Шапка таблицы — одна из трёх ролей Geist Mono в limeui.
 function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   return (
     <th
       data-slot="table-head"
       className={cn(
-        "h-10 px-3 text-left align-middle text-xs font-semibold tracking-[0.06em] text-muted-foreground uppercase whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+        "px-4 py-3 text-left align-middle font-mono text-[10px] font-medium tracking-[0.06em] text-muted-foreground uppercase whitespace-nowrap lg:px-6 [&:has([role=checkbox])]:pr-0",
         className
       )}
       {...props}
@@ -74,9 +79,32 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
   return (
     <td
       data-slot="table-cell"
-      className={cn("p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0", className)}
+      className={cn(
+        "px-4 py-4 align-middle text-[13px] whitespace-nowrap lg:px-6 [&:has([role=checkbox])]:pr-0",
+        className
+      )}
       {...props}
     />
+  )
+}
+
+function TableEmpty({
+  className,
+  colSpan,
+  children,
+  ...props
+}: React.ComponentProps<"td"> & { colSpan: number }) {
+  return (
+    <tr data-slot="table-empty-row" className="hover:bg-transparent">
+      <td
+        data-slot="table-empty"
+        colSpan={colSpan}
+        className={cn("p-0", className)}
+        {...props}
+      >
+        <EmptyState>{children}</EmptyState>
+      </td>
+    </tr>
   )
 }
 
@@ -98,5 +126,6 @@ export {
   TableHead,
   TableRow,
   TableCell,
+  TableEmpty,
   TableCaption,
 }
