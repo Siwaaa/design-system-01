@@ -167,6 +167,15 @@ export default function DashboardDemo() {
       </Sidebar>
 
       <SidebarInset>
+        {/* Триггер обязан жить снаружи Sidebar: на мобильном сам Sidebar
+            рендерится внутри Sheet, который этой кнопкой и открывается. */}
+        <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-border bg-background px-4 py-3 md:hidden">
+          <SidebarTrigger />
+          <span className="text-[15px] font-extrabold tracking-[-0.04em]">
+            limeui
+          </span>
+        </header>
+
         <div className="mx-auto w-full max-w-[1320px] px-6 py-8 lg:px-10 lg:py-10">
           <PageHeader>
             <PageHeaderContent>
@@ -185,10 +194,13 @@ export default function DashboardDemo() {
                 <Eyebrow className="mb-3.5 text-background opacity-60">
                   Заработано · август 2026
                 </Eyebrow>
-                <Num
-                  value={TOTAL}
-                  className="block text-[64px] font-semibold leading-[0.9] tracking-[-0.04em] lg:text-[88px]"
-                />
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                  <Num
+                    value={TOTAL}
+                    className="text-[64px] font-semibold leading-[0.9] tracking-[-0.04em] lg:text-[88px]"
+                  />
+                  <span className="text-[24px] opacity-40 lg:text-[32px]">₽</span>
+                </div>
                 <BarChart
                   className="mt-9"
                   data={EARNINGS}

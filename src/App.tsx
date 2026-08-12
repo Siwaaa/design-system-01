@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <div className="min-h-svh">
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+      <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 md:top-4 md:right-4 md:bottom-auto md:left-auto md:translate-x-0">
         <SegmentedControl value={view} onValueChange={setView}>
           <SegmentedControlItem value="dashboard">Дашборд</SegmentedControlItem>
           <SegmentedControlItem value="components">
