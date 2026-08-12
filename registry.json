@@ -123,6 +123,20 @@
       "registryDependencies": [
         "@limeui/theme"
       ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "files": [
+        {
+          "path": "registry/limeui/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
