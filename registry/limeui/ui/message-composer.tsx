@@ -14,6 +14,8 @@ function MessageComposer({
   disabled = false,
   maxRows = 6,
   sendLabel = "Send",
+  textareaProps,
+  textareaRef,
   ...props
 }: Omit<React.ComponentProps<"form">, "onSubmit"> & {
   onSend: (value: string) => void
@@ -21,8 +23,26 @@ function MessageComposer({
   disabled?: boolean
   maxRows?: number
   sendLabel?: string
+  textareaProps?: Omit<React.ComponentProps<typeof Textarea>, "ref">
+  textareaRef?: React.Ref<HTMLTextAreaElement>
 }) {
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const innerTextareaRef = React.useRef<HTMLTextAreaElement>(null)
+
+  // Реф авторóста должен продолжать работать вместе с внешним рефом
+  // потребителя, поэтому оба объединяются в один колбэк-реф.
+  const setTextareaRef = React.useCallback(
+    (node: HTMLTextAreaElement | null) => {
+      innerTextareaRef.current = node
+      if (typeof textareaRef === "function") {
+        textareaRef(node)
+      } else if (textareaRef) {
+        ;(textareaRef as React.MutableRefObject<HTMLTextAreaElement | null>).current =
+          node
+      }
+    },
+    [textareaRef]
+  )
+
   const [value, setValue] = React.useState("")
 
   const trimmed = value.trim()
@@ -31,7 +51,7 @@ function MessageComposer({
   // Авторост: высота сбрасывается перед замером, иначе scrollHeight
   // запомнит предыдущее, большее значение и поле никогда не уменьшится.
   React.useLayoutEffect(() => {
-    const element = textareaRef.current
+    const element = innerTextareaRef.current
     if (!element) return
 
     element.style.height = "auto"
@@ -53,6 +73,11 @@ function MessageComposer({
     if (!canSend) return
     onSend(trimmed)
     setValue("")
+    // Очистка делает кнопку отправки неактивной, а отключение сфокусированной
+    // кнопки сбрасывает фокус на тело документа — возвращаем его в поле,
+    // иначе клавиатурный пользователь после каждой отправки начинает обход
+    // табом заново с начала страницы.
+    innerTextareaRef.current?.focus()
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -79,14 +104,15 @@ function MessageComposer({
       {...props}
     >
       <Textarea
-        ref={textareaRef}
+        {...textareaProps}
+        ref={setTextareaRef}
         value={value}
         rows={1}
         disabled={disabled}
         placeholder={placeholder}
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={handleKeyDown}
-        className="min-h-0 resize-none py-3 text-[13px]"
+        className={cn("min-h-0 resize-none py-3 text-[13px]", textareaProps?.className)}
       />
       <Button
         type="submit"

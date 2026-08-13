@@ -146,8 +146,9 @@ limeui-typing-bounce` тем же способом, что `progress` доста
 Файл `registry/limeui/ui/conversation-list.tsx`.
 
 Экспорты: `ConversationList` (`ul`), `ConversationItem` (`li` с кнопкой
-внутри, проп `isActive` → `data-active`), `ConversationTitle`,
-`ConversationPreview`, `ConversationMeta`, `ConversationBadge`.
+внутри, проп `isActive` → `data-active`), `ConversationBody`,
+`ConversationTitle`, `ConversationPreview`, `ConversationMeta`,
+`ConversationBadge`.
 
 Оформление: радиус `rounded-sm` как у пунктов сайдбара, активный элемент —
 `bg-secondary`. Чёрная плашка сознательно не используется: она уже занята
@@ -200,9 +201,12 @@ limeui-typing-bounce` тем же способом, что `progress` доста
 страница внутри того же каркаса невозможна без дублирования.
 
 Появляется `src/demo/DemoShell.tsx`: провайдер, сайдбар, мобильная шапка
-и `SidebarInset`. Пропсы — `active` (заголовок подсвеченного пункта) и
-`children`. `DashboardDemo` переезжает на него без изменения внешнего вида;
-это проверяется диффом собранного CSS.
+и `SidebarInset`. Пропсы — `active` (заголовок подсвеченного пункта),
+`fill` (страницам с собственной внутренней прокруткой, как ленте сообщений,
+нужна определённая высота у `SidebarInset` — без этого `min-h-0` у потомков
+ограничивает лишь то, насколько они МОГУТ сжаться, но не создаёт места,
+относительно которого сжиматься) и `children`. `DashboardDemo` переезжает
+на него без изменения внешнего вида; это проверяется диффом собранного CSS.
 
 Правило 10 дополняется третьей страницей и упоминанием каркаса.
 

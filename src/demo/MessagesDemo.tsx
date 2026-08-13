@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 import { Avatar, AvatarFallback } from "@/registry/limeui/ui/avatar"
 import {
@@ -55,12 +55,16 @@ const HISTORY: ChatMessage[] = [
 export default function MessagesDemo() {
   const [messages, setMessages] = useState(HISTORY)
   const [activeChat, setActiveChat] = useState(1)
+  // Счётчик id не завязан на длину массива: длина меняется при удалении
+  // сообщений, а идентификатор должен оставаться уникальным независимо от неё.
+  const nextIdRef = useRef(HISTORY.length + 1)
 
   function send(text: string) {
+    const id = nextIdRef.current++
     setMessages((current) => [
       ...current,
       {
-        id: current.length + 1,
+        id,
         author: "me",
         text,
         time: new Date().toLocaleTimeString("ru-RU", {

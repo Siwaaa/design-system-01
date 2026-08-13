@@ -113,14 +113,18 @@ const messageBubbleVariants = cva(
     "w-fit max-w-[min(38rem,85%)] px-3.5 py-2.5",
     // оформление
     "rounded-lg text-[13px] leading-[1.5]",
+    // геометрия по стороне — угол со стороны аватара срезается до меньшего
+    // токена («хвостик» собирается из существующей шкалы, пятый радиус не
+    // вводится); сторона следует выравниванию родительского Message, а не
+    // варианту цвета, иначе при их рассинхронизации хвостик указывает в
+    // противоположную от аватара сторону
+    "group-data-[align=start]/message:rounded-bl-sm group-data-[align=end]/message:rounded-br-sm",
   ],
   {
     variants: {
       variant: {
-        // Угол со стороны аватара срезается до меньшего токена — «хвостик»
-        // собирается из существующей шкалы, пятый радиус не вводится.
-        incoming: "rounded-bl-sm bg-secondary text-foreground",
-        outgoing: "rounded-br-sm bg-foreground text-background",
+        incoming: "bg-secondary text-foreground",
+        outgoing: "bg-foreground text-background",
         // Системное сообщение — не пузырь, а строка по центру ленты.
         system:
           "mx-auto max-w-[min(38rem,100%)] bg-transparent px-0 py-1 text-center text-[12px] text-muted-foreground",

@@ -25,6 +25,7 @@ function ConversationItem({
         type="button"
         data-slot="conversation-item-button"
         data-active={isActive}
+        aria-current={isActive ? "true" : undefined}
         className={cn(
           // раскладка
           "flex w-full min-w-0 items-center gap-3 px-3 py-2.5 text-left",
