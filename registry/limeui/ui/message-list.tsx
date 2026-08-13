@@ -47,7 +47,7 @@ function MessageList({
       if (!atBottomRef.current) return
       sentinelRef.current?.scrollIntoView({ block: "end" })
     })
-    observer.observe(content, { childList: true, subtree: true })
+    observer.observe(content, { childList: true, subtree: true, characterData: true })
     return () => observer.disconnect()
   }, [])
 
@@ -84,6 +84,7 @@ function MessageList({
             block: "end",
           })
         }
+        inert={atBottom}
         className={cn(
           // раскладка
           "absolute bottom-4 left-1/2 -translate-x-1/2",

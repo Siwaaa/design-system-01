@@ -37,7 +37,7 @@ function MessageComposer({
     element.style.height = "auto"
 
     const styles = getComputedStyle(element)
-    const lineHeight = parseFloat(styles.lineHeight) || 24
+    const lineHeight = parseFloat(styles.lineHeight) || parseFloat(styles.fontSize) * 1.5
     const vertical =
       parseFloat(styles.paddingTop) +
       parseFloat(styles.paddingBottom) +
