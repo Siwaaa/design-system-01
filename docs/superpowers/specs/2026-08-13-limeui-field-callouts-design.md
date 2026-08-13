@@ -1,0 +1,189 @@
+# limeui: Field, брендовые тона Alert, CopyField — дизайн
+
+**Дата:** 2026-08-13
+**Статус:** на согласовании
+**Ветка:** `limeui-design-system`
+
+## Задача
+
+Прогон `/profile` на app.klipni.com (залогинённой сессией, computed-стили
+сняты напрямую) показал три вещи, которых в `@limeui` нет, при этом все три
+повторяются на одной странице по несколько раз:
+
+1. Пара «моно-лейбл сверху → контрол → сноска снизу» — на этой странице
+   собрана вручную заново в каждой из пяти форм. Системного примитива нет.
+2. `Alert` умеет только нейтральный/зелёный/красный тон. У клипни для
+   привлечения внимания и мягких пояснений внутри форм используется
+   фирменный лаймовый тон в двух насыщенностях, которого у нас нет вообще —
+   отсюда ощущение «некрасивых цветов» у текущего набора вариантов.
+3. Поле-ссылка с копированием (публичная страница профиля) — паттерна нет.
+
+## Что даёт апстрим
+
+`@shadcn/field` — проверено через MCP shadcn, JSON стиля `radix-nova`
+запрошен напрямую. Полный набор: `FieldSet`, `FieldLegend`, `FieldGroup`,
+`Field` (варианты `orientation`), `FieldContent`, `FieldLabel` (обёртка над
+`Label`), `FieldTitle`, `FieldDescription`, `FieldError`, `FieldSeparator`.
+Зависимости апстрима — `label`, `separator`, оба уже есть в `@limeui`.
+
+Для копирования и брендовых тонов `Alert` апстрим ничего не предлагает —
+это специфика klipni, делаем сами, как раньше `bar-chart` и примитивы чата.
+
+## Снятые значения (computed styles, живая страница)
+
+**Field label + description** (форма «Подключить выплаты», поле ИНН):
+```html
+<div class="flex flex-col gap-1.5">
+  <div class="flex items-baseline justify-between">
+    <label class="font-mono text-[11px] font-medium uppercase tracking-[0.04em] text-fg-muted">ИНН</label>
+    <span class="font-mono text-[10px] text-fg-subtle">0/12</span>
+  </div>
+  <input class="h-12 rounded-[12px] border ..." />
+  <span class="text-[11px] leading-[1.4] text-fg-subtle">12 цифр — найдёте в «Мой налог», на <a>Госуслугах</a>…</span>
+</div>
+```
+Лейбл — `font-mono text-[11px] uppercase tracking-[0.04em] text-fg-muted` —
+побайтово совпадает с нашим `eyebrowVariants` размера `default` (11px).
+
+**Плотный кликабельный баннер** («Добавьте фото профиля»):
+```
+flex cursor-pointer items-center justify-between gap-3
+rounded-card border border-accent bg-accent-soft px-4 py-3.5
+```
+`rounded-card` = наш `rounded-lg` (20px). `border-accent`/`bg-accent-soft` —
+их именование `primary`/`primary-soft`, токены у нас уже есть.
+
+**Приглушённый inline-notice** (форма выплат, «Нужна самозанятость…»):
+раскладка `flex items-start gap-3`, отступы `px-4 py-3.5`, радиус 14px
+(= наш `rounded-md`), рамка — фирменный акцент на 30% прозрачности, фон —
+он же на 6%.
+
+Классы klipni здесь намеренно не цитируются дословно: их токен акцента
+называется так же, как один из наших, и Tailwind, сканируя текст этого
+файла, сгенерировал бы из цитаты живые утилиты в наш бандл. Проверено —
+именно так и произошло при первом написании спеки (правило 13).
+
+Альфа-модификаторы на цвет через `/N` в проекте уже применяются
+(`bg-destructive/10` в текущем `alert.tsx` и `badge.tsx`), приём не новый.
+
+**Поле-ссылка с копированием** (публичная страница):
+```
+input: rounded-card-sm border bg-bg-soft px-4 py-3 pr-11 font-mono text-[12.5px] text-fg border-border
+wrapper: relative mt-3.5
+```
+`pr-11` освобождает место под кнопку-иконку, вставленную поверх поля.
+
+## Не входит в объём
+
+- Загрузка аватара (круглая кнопка 200×200 с превью и скрытым `input[file]`)
+  — самостоятельный компонент, замечен на той же странице, но пользователь
+  не включил его в этот батч.
+- Флаг/страна, статичный тег-бейдж, компактное пустое состояние канала —
+  зафиксированы при прогоне как малоценные или слишком предметные, в объём
+  не берём (см. разбор в чате).
+- Любая сетевая логика: `CopyField` копирует переданную строку через
+  `navigator.clipboard`, ни один компонент не делает запросов.
+
+## Решения
+
+### 1. `Field`
+
+Файл `registry/limeui/ui/field.tsx`. Порт апстримового набора с одной
+смысловой правкой: `FieldLabel` рендерит настоящий `<label>`, стилизованный
+классами `eyebrowVariants({ size: "default" })` из `typography.tsx`, а не
+оборачивает компонент `Eyebrow` (тот рендерит `<div>` — обёртка div-ом
+теряет связь `for`/`id` с полем). Визуально — то же самое, что у `Eyebrow`,
+но с правильной формой.
+
+`FieldDescription` — как у апстрима, `text-muted-foreground`, ссылки внутри
+подчёркнутые. Экспорты апстрима сохраняются: `Field`, `FieldLabel`,
+`FieldDescription`, `FieldError`, `FieldGroup`, `FieldLegend`, `FieldSet`,
+`FieldContent`, `FieldTitle`, `FieldSeparator`.
+
+Отдельного `FieldCounter` не заводим: счётчик у клипни — обычный `span` в
+одной строке с лейблом (`flex items-baseline justify-between`), это состав
+разметки внутри `Field`, а не новый компонент.
+
+Итем: `registryDependencies` — `@limeui/theme`, `@limeui/typography`,
+`@limeui/separator`; `dependencies` — `class-variance-authority`.
+
+### 2. `Alert` — два новых тона, компонент не дробится
+
+`registry/limeui/ui/alert.tsx`, `alertVariants` получает:
+
+- `accent` — `bg-primary-soft border-primary` — тот самый плотный лайм.
+  Существующие токены, ничего нового не заводим.
+- `accent-subtle` — `bg-primary/[0.06] border-primary/30` — тихий inline-тон
+  для пояснений внутри форм.
+
+Оба тона проверяются в браузере в обеих темах отдельно: альфа поверх
+тёмного фона визуально ведёт себя иначе, чем поверх светлого, и глазами
+до сборки этого не оценить.
+
+**`AlertAction`** — новый экспорт того же файла, не варианта `Alert`, а
+отдельный слот. Причина: клипнинский баннер целиком кликабелен, но
+оборачивать контейнер с `role="alert"` в `<a>` — плохая семантика
+(интерактивный элемент, вложенный в статус-контейнер, путает скринридер).
+`AlertAction` — маленькая кнопка-стрелка у правого края, `asChild`-совместимая
+как `Button`, так что подставить туда `<a>` может сам потребитель:
+
+```tsx
+<Alert variant="accent">
+  <AlertTitle>Добавьте фото профиля</AlertTitle>
+  <AlertDescription>Бренды листают каталог глазами…</AlertDescription>
+  <AlertAction asChild>
+    <a href="/profile/photo" aria-label="Открыть">
+      <ArrowRightIcon />
+    </a>
+  </AlertAction>
+</Alert>
+```
+
+Раскладка `Alert` сейчас — `grid grid-cols-[0_1fr]`, где иконка через
+`has-[>svg]` уезжает в первую колонку. `AlertAction` встаёт в ту же сетку
+третьей позицией через `has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]`
+(если иконки нет — `grid-cols-[1fr_auto]`), выровненная по правому краю.
+
+Итем не меняет `registryDependencies` — `@limeui/button` уже есть в списке
+(нужен для `Slot`-паттерна `asChild`, как у `Button`).
+
+### 3. `CopyField`
+
+Файл `registry/limeui/ui/copy-field.tsx`, экспорт `CopyField`. Пропсы:
+`value: string`, `label?` (доступное имя кнопки копирования, по умолчанию
+`"Copy"`), `copiedLabel?` (по умолчанию `"Copied"`).
+
+`readonly`-инпут в моно (`font-mono text-[12.5px]`, как в снятых значениях)
+плюс кнопка-иконка `icon-sm` внутри поля справа (`absolute right-1.5`,
+поле — `pr-11`). Клик копирует `value` через `navigator.clipboard.writeText`,
+иконка на 1.5 секунды меняется на галочку, доступное имя кнопки временно
+меняется на `copiedLabel` — screen reader получает подтверждение через
+`aria-live`, а не только визуально.
+
+Радиус поля — `rounded-md`: `rounded-card-sm` у клипни при повторном замере
+дал `border-radius: 14px`, это ровно наш существующий токен, новый не
+заводим.
+
+Итем: `registryDependencies` — `@limeui/theme`, `@limeui/button`;
+без npm-зависимостей.
+
+## Проверка
+
+1. `pnpm build` и `pnpm build:registry` проходят, `r/` в синхроне.
+2. `Field` показан на демо-странице переписки не будет — это компонент для
+   форм, ему место в `ComponentsDemo.tsx`: минимум одна форма из нескольких
+   `Field` с `FieldDescription`, содержащей ссылку, и одним `FieldError`.
+3. Оба новых тона `Alert` и `AlertAction` — на демо, в обеих темах, включая
+   пример с `asChild`-ссылкой.
+4. `CopyField` — на демо, клик подтверждается визуально и через
+   `aria-live`, доступное имя кнопки меняется и возвращается.
+5. Установка в чистый проект-потребитель настоящим CLI: все три итема,
+   транзитивные зависимости, сборка потребителя проходит.
+6. Классы разбиты по осям, имена классов не попадают в текст комментариев
+   и документации — оба правила уже дважды ловили реальные дефекты в этом
+   репозитории.
+
+## Открытые вопросы
+
+Нет. Единственная развилка (кликабельность `Alert` целиком против
+отдельного `AlertAction`) закрыта решением выше.
