@@ -700,6 +700,26 @@
         "@limeui/avatar",
         "@limeui/typography"
       ]
+    },
+    {
+      "name": "message-composer",
+      "type": "registry:ui",
+      "title": "Message Composer",
+      "description": "Строка ввода сообщения: авторост до заданного числа строк, Enter отправляет, Shift+Enter переносит, пустое значение не отправляется.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message-composer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button",
+        "@limeui/textarea"
+      ]
     }
   ]
 }

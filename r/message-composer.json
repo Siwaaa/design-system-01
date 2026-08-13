@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-composer",
+  "title": "Message Composer",
+  "description": "Строка ввода сообщения: авторост до заданного числа строк, Enter отправляет, Shift+Enter переносит, пустое значение не отправляется.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@limeui/theme",
+    "@limeui/button",
+    "@limeui/textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/message-composer.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ArrowUpIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/registry/limeui/ui/button\"\nimport { Textarea } from \"@/registry/limeui/ui/textarea\"\n\nfunction MessageComposer({\n  className,\n  onSend,\n  placeholder = \"Message…\",\n  disabled = false,\n  maxRows = 6,\n  sendLabel = \"Send\",\n  ...props\n}: Omit<React.ComponentProps<\"form\">, \"onSubmit\"> & {\n  onSend: (value: string) => void\n  placeholder?: string\n  disabled?: boolean\n  maxRows?: number\n  sendLabel?: string\n}) {\n  const textareaRef = React.useRef<HTMLTextAreaElement>(null)\n  const [value, setValue] = React.useState(\"\")\n\n  const trimmed = value.trim()\n  const canSend = trimmed.length > 0 && !disabled\n\n  // Авторост: высота сбрасывается перед замером, иначе scrollHeight\n  // запомнит предыдущее, большее значение и поле никогда не уменьшится.\n  React.useLayoutEffect(() => {\n    const element = textareaRef.current\n    if (!element) return\n\n    element.style.height = \"auto\"\n\n    const styles = getComputedStyle(element)\n    const lineHeight = parseFloat(styles.lineHeight) || 24\n    const vertical =\n      parseFloat(styles.paddingTop) +\n      parseFloat(styles.paddingBottom) +\n      parseFloat(styles.borderTopWidth) +\n      parseFloat(styles.borderBottomWidth)\n    const maxHeight = lineHeight * maxRows + vertical\n\n    element.style.height = `${Math.min(element.scrollHeight, maxHeight)}px`\n    element.style.overflowY = element.scrollHeight > maxHeight ? \"auto\" : \"hidden\"\n  }, [value, maxRows])\n\n  function send() {\n    if (!canSend) return\n    onSend(trimmed)\n    setValue(\"\")\n  }\n\n  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {\n    // isComposing защищает ввод через IME: во время подбора иероглифа или\n    // диакритики Enter принадлежит редактору метода ввода, а не форме.\n    if (event.key !== \"Enter\" || event.shiftKey) return\n    if (event.nativeEvent.isComposing) return\n    event.preventDefault()\n    send()\n  }\n\n  return (\n    <form\n      data-slot=\"message-composer\"\n      onSubmit={(event) => {\n        event.preventDefault()\n        send()\n      }}\n      className={cn(\n        // раскладка\n        \"flex w-full items-end gap-2\",\n        className\n      )}\n      {...props}\n    >\n      <Textarea\n        ref={textareaRef}\n        value={value}\n        rows={1}\n        disabled={disabled}\n        placeholder={placeholder}\n        onChange={(event) => setValue(event.target.value)}\n        onKeyDown={handleKeyDown}\n        className=\"min-h-0 resize-none py-3 text-[13px]\"\n      />\n      <Button\n        type=\"submit\"\n        size=\"icon\"\n        disabled={!canSend}\n        aria-label={sendLabel}\n        className=\"shrink-0\"\n      >\n        <ArrowUpIcon />\n      </Button>\n    </form>\n  )\n}\n\nexport { MessageComposer }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
