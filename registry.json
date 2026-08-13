@@ -762,6 +762,25 @@
         "@limeui/separator",
         "@limeui/typography"
       ]
+    },
+    {
+      "name": "copy-field",
+      "type": "registry:ui",
+      "title": "Copy Field",
+      "description": "Поле только для чтения со встроенной кнопкой копирования: ссылка на профиль, токен, реквизит. Значение читается моноширинно, копирование подтверждается голосом и иконкой.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/copy-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button"
+      ]
     }
   ]
 }
