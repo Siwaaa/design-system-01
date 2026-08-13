@@ -635,6 +635,110 @@
         "@limeui/theme",
         "@limeui/typography"
       ]
+    },
+    {
+      "name": "message",
+      "type": "registry:ui",
+      "title": "Message",
+      "description": "Раскладка сообщения переписки: группа, выравнивание по стороне, аватар, шапка и подвал, пузырь в трёх вариантах, время через Num и индикатор набора.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/avatar",
+        "@limeui/typography"
+      ],
+      "css": {
+        "@keyframes limeui-typing-bounce": {
+          "0%, 60%, 100%": {
+            "transform": "translateY(0)",
+            "opacity": "0.45"
+          },
+          "30%": {
+            "transform": "translateY(-3px)",
+            "opacity": "1"
+          }
+        }
+      }
+    },
+    {
+      "name": "message-separator",
+      "type": "registry:ui",
+      "title": "Message Separator",
+      "description": "Разделитель ленты переписки: подпись дня или граница непрочитанного. Подпись рендерится через Eyebrow.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message-separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
+      ]
+    },
+    {
+      "name": "conversation-list",
+      "type": "registry:ui",
+      "title": "Conversation List",
+      "description": "Список диалогов: аватар, имя, превью последнего сообщения, время и счётчик непрочитанных. Активный элемент подсвечен приглушённым фоном, чёрная плашка оставлена сайдбару.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/conversation-list.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/avatar",
+        "@limeui/typography"
+      ]
+    },
+    {
+      "name": "message-composer",
+      "type": "registry:ui",
+      "title": "Message Composer",
+      "description": "Строка ввода сообщения: авторост до заданного числа строк, Enter отправляет, Shift+Enter переносит, пустое значение не отправляется.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message-composer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button",
+        "@limeui/textarea"
+      ]
+    },
+    {
+      "name": "message-list",
+      "type": "registry:ui",
+      "title": "Message List",
+      "description": "Прокручиваемая лента переписки: автоскролл к новым сообщениям только если пользователь уже внизу, плюс кнопка возврата вниз при отлистывании вверх. Без внешних зависимостей.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message-list.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/button"
+      ]
     }
   ]
 }

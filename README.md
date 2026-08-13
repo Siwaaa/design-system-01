@@ -1,6 +1,6 @@
 # limeui
 
-Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема, хук `use-mobile` и 29 компонентов — 31 итем реестра, состав ниже. Код компонентов копируется в проект — им владеет проект (философия shadcn).
+Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема, хук `use-mobile` и 34 компонента — 36 итемов реестра, состав ниже. Код компонентов копируется в проект — им владеет проект (философия shadcn).
 
 Раздаётся статикой из папки [`r/`](r/) через GitHub raw.
 
@@ -21,6 +21,8 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 
 `@limeui/theme` подтягивается автоматически как зависимость любого компонента — отдельно ставить не обязательно.
 
+> Если проект уже инициализирован shadcn (в нём уже есть свои CSS-переменные), обычная установка темы их не перезапишет — ставьте палитру с флагом перезаписи файлов.
+
 > `src/lib/utils.ts` не раздаётся реестром (ожидается, что он уже есть после `shadcn init`). Если хотите надёжно переопределять `rounded-pill` через `className`, расширьте свой `cn()` через `extendTailwindMerge` так же, как в этом репозитории (`src/lib/utils.ts`) — иначе `rounded-pill` может конфликтовать с другими `rounded-*` непредсказуемо.
 
 ## Состав
@@ -31,6 +33,7 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 | `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `sheet` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
 | `avatar` `progress` `sidebar` | registry:ui — примитивы дашборда |
 | `bar-chart` `chip` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
+| `message` `message-list` `message-composer` `conversation-list` `message-separator` | registry:ui — примитивы чата |
 | `use-mobile` | registry:hook |
 
 Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: `font-mono` стоит вручную только внутри самих компонентов реестра — `Eyebrow`, `Num`, лейбл и бейдж группы в `Sidebar`, шапка `Table`, `StatCaption`, подписи оси `BarChart`, инициалы `Avatar`. Прикладной код `font-mono` руками не ставит — прямой `font-mono` вне компонента реестра является признаком того, что нужен один из них.
@@ -40,6 +43,12 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 `@limeui/sidebar` — канонический shadcn-сайдбар с API апстрима, перекрашенный под klipni: 236px развёрнутый, 68px свёрнутый, группы с mono-лейблами, активный пункт — чёрная плашка. Тянет за собой `sheet`, `use-mobile`, `tooltip`, `input`, `skeleton`, `separator`, `button`.
 
 `@limeui/bar-chart` — столбчатый график за период без единой внешней зависимости: flex-вёрстка, каждый столбец — кнопка с `aria-label`, дни без значения рисуются полоской 2px.
+
+## Чат
+
+`@limeui/message-list` — лента сообщений: пока пользователь сам находится внизу, новые сообщения доскролливают ленту автоматически; как только он поднялся выше читать историю, автоскролл выключается и появляется плавающая кнопка возврата к последним. Апстримовый скроллер shadcn не взят: он тянет отдельный npm-пакет, в раздаваемом реестре ссылается на файл темы скроллбара, которого там нет, и требует нестандартных утилит для оформления самого скроллбара — здесь вместо этого нативная прокрутка браузера.
+
+`@limeui/message-composer` — поле ввода с автовысотой до ограниченного числа строк: Enter отправляет сообщение, Shift+Enter переносит строку внутри поля, ввод через IME (иероглифы, диакритика) Enter не перехватывает.
 
 ## Демо
 

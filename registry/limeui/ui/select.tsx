@@ -25,7 +25,12 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "flex h-[52px] w-full items-center justify-between gap-2 rounded-lg border border-border bg-secondary px-4 text-base text-foreground outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground",
+        // раскладка
+        "flex h-[52px] w-full items-center justify-between gap-2 px-4 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+        // оформление — та же коробка, что у Input
+        "rounded-lg border border-border bg-secondary text-base text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
+        // состояния
+        "disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive",
         className
       )}
       {...props}

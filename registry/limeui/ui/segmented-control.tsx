@@ -28,7 +28,12 @@ function SegmentedControlItem({
     <RadioGroupPrimitive.Item
       data-slot="segmented-control-item"
       className={cn(
-        "rounded-pill px-4 py-2 text-sm font-semibold tracking-tight text-foreground outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 data-[state=checked]:bg-foreground data-[state=checked]:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+        // раскладка
+        "px-4 py-2",
+        // оформление
+        "rounded-pill text-sm font-semibold tracking-tight text-foreground outline-none transition-colors",
+        // состояния — выбранный сегмент инвертируется в чёрную плашку
+        "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=checked]:bg-foreground data-[state=checked]:text-background",
         className
       )}
       {...props}

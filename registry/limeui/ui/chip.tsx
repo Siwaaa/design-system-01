@@ -11,7 +11,12 @@ function Chip({
     <TogglePrimitive.Root
       data-slot="chip"
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-pill border border-border bg-secondary px-3.5 py-1.5 text-sm font-medium tracking-tight text-foreground outline-none transition-colors hover:bg-secondary/70 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+        // раскладка
+        "inline-flex items-center gap-1.5 px-3.5 py-1.5",
+        // оформление
+        "rounded-pill border border-border bg-secondary text-sm font-medium tracking-tight text-foreground outline-none transition-colors",
+        // состояния — нажатый чип инвертируется в чёрную плашку
+        "hover:bg-secondary/70 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background",
         className
       )}
       {...props}
