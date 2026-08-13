@@ -683,6 +683,22 @@
         "@limeui/theme",
         "@limeui/typography"
       ]
+    },
+    {
+      "name": "conversation-list",
+      "type": "registry:ui",
+      "title": "Conversation List",
+      "description": "Список диалогов: аватар, имя, превью последнего сообщения, время и счётчик непрочитанных. Активный элемент подсвечен приглушённым фоном, чёрная плашка оставлена сайдбару.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/conversation-list.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
+      ]
     }
   ]
 }
