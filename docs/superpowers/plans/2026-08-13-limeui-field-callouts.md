@@ -382,7 +382,7 @@ const alertVariants = cva(
   [
     // раскладка — иконка слева и слот действия справа добавляют колонки
     "relative grid w-full grid-cols-[0_1fr] gap-y-0.5 px-4 py-3.5 has-[>svg]:grid-cols-[16px_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
-    "has-[>[data-slot=alert-action]]:grid-cols-[1fr_auto] has-[>[data-slot=alert-action]]:items-center has-[>svg]:has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]",
+    "has-[>[data-slot=alert-action]]:grid-cols-[0_1fr_auto] has-[>[data-slot=alert-action]]:items-center has-[>svg]:has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]",
     // оформление
     "rounded-lg border border-border bg-secondary text-sm [&>svg]:text-foreground",
   ],
@@ -474,7 +474,7 @@ function AlertAction({
 export { Alert, AlertTitle, AlertDescription, AlertAction, alertVariants }
 ```
 
-Замечание про сетку: при варианте без иконки колонок две, и слот действия должен встать во вторую. Значение `col-start-3` в этом случае указывает за пределы сетки, поэтому в базовой строке для случая без иконки задан отдельный набор колонок. Если при проверке в браузере слот окажется не на своём месте — правь раскладку в базе `cva`, а не подпирай отступами в демо.
+Замечание про сетку: в базовой строке для всех сочетаний иконки и слота используется нулевая колонка-заглушка, которая задаёт три явных трека. Это гарантирует, что подпись встанет во вторую колонку, а слот в третью, независимо от наличия иконки. Если при проверке в браузере слот окажется не на своём месте — правь раскладку в базе `cva`, а не подпирай отступами в демо.
 
 - [ ] **Шаг 2: Обновить итем `alert` в `registry.json`**
 

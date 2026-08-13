@@ -8,7 +8,7 @@ const alertVariants = cva(
   [
     // раскладка — иконка слева и слот действия справа добавляют колонки
     "relative grid w-full grid-cols-[0_1fr] gap-y-0.5 px-4 py-3.5 has-[>svg]:grid-cols-[16px_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
-    "has-[>[data-slot=alert-action]]:grid-cols-[1fr_auto] has-[>[data-slot=alert-action]]:items-center has-[>svg]:has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]",
+    "has-[>[data-slot=alert-action]]:grid-cols-[0_1fr_auto] has-[>[data-slot=alert-action]]:items-center has-[>svg]:has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]",
     // оформление
     "rounded-lg border border-border bg-secondary text-sm [&>svg]:text-foreground",
   ],
@@ -76,13 +76,16 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"div">) 
 function AlertAction({
   className,
   asChild = false,
+  type = "button",
   ...props
 }: React.ComponentProps<"button"> & { asChild?: boolean }) {
   const Comp = asChild ? Slot.Root : "button"
+  const finalType = asChild ? undefined : type
 
   return (
     <Comp
       data-slot="alert-action"
+      {...(asChild ? {} : { type: finalType })}
       className={cn(
         // раскладка — встаёт в последнюю колонку сетки, во всю её высоту
         "col-start-3 row-span-full row-start-1 flex size-8 shrink-0 items-center justify-center self-center [&>svg]:size-4 [&>svg]:shrink-0",
