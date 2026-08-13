@@ -635,6 +635,38 @@
         "@limeui/theme",
         "@limeui/typography"
       ]
+    },
+    {
+      "name": "message",
+      "type": "registry:ui",
+      "title": "Message",
+      "description": "Раскладка сообщения переписки: группа, выравнивание по стороне, аватар, шапка и подвал, пузырь в трёх вариантах, время через Num и индикатор набора.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/avatar",
+        "@limeui/typography"
+      ],
+      "css": {
+        "@keyframes limeui-typing-bounce": {
+          "0%, 60%, 100%": {
+            "transform": "translateY(0)",
+            "opacity": "0.45"
+          },
+          "30%": {
+            "transform": "translateY(-3px)",
+            "opacity": "1"
+          }
+        }
+      }
     }
   ]
 }
