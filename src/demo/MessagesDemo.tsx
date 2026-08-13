@@ -72,7 +72,7 @@ export default function MessagesDemo() {
   }
 
   return (
-    <DemoShell active="Сообщения">
+    <DemoShell active="Сообщения" fill>
       <div className="grid min-h-0 flex-1 grid-cols-1 xl:grid-cols-[300px_1fr]">
         <aside className="hidden min-h-0 flex-col border-r border-border xl:flex">
           <div className="border-b border-border px-4 py-4">

@@ -59,9 +59,16 @@ const BALANCE = 150000
 
 export default function DemoShell({
   active,
+  fill = false,
   children,
 }: {
   active: string
+  // Каркас по умолчанию прокручивает документ — так ведёт себя дашборд.
+  // Страницам, которым нужна собственная внутренняя прокрутка (лента
+  // сообщений), нужна определённая высота у SidebarInset: без неё
+  // min-h-0 у потомков ограничивает лишь то, насколько они МОГУТ
+  // сжаться, но не создаёт места, относительно которого сжиматься.
+  fill?: boolean
   children: React.ReactNode
 }) {
   return (
@@ -129,7 +136,9 @@ export default function DemoShell({
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset>
+      <SidebarInset
+        className={fill ? "h-svh overflow-hidden" : undefined}
+      >
         {/* Триггер обязан жить снаружи Sidebar: на мобильном сам Sidebar
             рендерится внутри Sheet, который этой кнопкой и открывается. */}
         <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-border bg-background px-4 py-3 md:hidden">
