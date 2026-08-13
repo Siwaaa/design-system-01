@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-separator",
+  "title": "Message Separator",
+  "description": "Разделитель ленты переписки: подпись дня или граница непрочитанного. Подпись рендерится через Eyebrow.",
+  "registryDependencies": [
+    "@limeui/theme",
+    "@limeui/typography"
+  ],
+  "files": [
+    {
+      "path": "registry/limeui/ui/message-separator.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Eyebrow } from \"@/registry/limeui/ui/typography\"\n\nfunction MessageSeparator({\n  className,\n  variant = \"day\",\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & { variant?: \"day\" | \"unread\" }) {\n  const line = variant === \"unread\" ? \"bg-primary\" : \"bg-border\"\n\n  return (\n    <div\n      data-slot=\"message-separator\"\n      data-variant={variant}\n      role=\"separator\"\n      className={cn(\n        // раскладка\n        \"flex w-full items-center gap-3 py-1\",\n        className\n      )}\n      {...props}\n    >\n      <span aria-hidden className={cn(\"h-px flex-1\", line)} />\n      <Eyebrow size=\"sm\" className={cn(variant === \"unread\" && \"text-primary\")}>\n        {children}\n      </Eyebrow>\n      <span aria-hidden className={cn(\"h-px flex-1\", line)} />\n    </div>\n  )\n}\n\nexport { MessageSeparator }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

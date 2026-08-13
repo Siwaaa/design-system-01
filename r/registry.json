@@ -667,6 +667,22 @@
           }
         }
       }
+    },
+    {
+      "name": "message-separator",
+      "type": "registry:ui",
+      "title": "Message Separator",
+      "description": "Разделитель ленты переписки: подпись дня или граница непрочитанного. Подпись рендерится через Eyebrow.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/message-separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
+      ]
     }
   ]
 }
