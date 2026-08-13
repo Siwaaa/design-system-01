@@ -172,7 +172,14 @@ function MessageTyping({
           key={index}
           aria-hidden
           style={{ animationDelay: `${index * 0.16}s` }}
-          className="size-1.5 rounded-pill bg-muted-foreground animate-[limeui-typing-bounce_1.1s_ease-in-out_infinite] motion-reduce:animate-none!"
+          className={cn(
+            // раскладка
+            "size-1.5",
+            // оформление
+            "rounded-pill bg-muted-foreground",
+            // состояния
+            "animate-[limeui-typing-bounce_1.1s_ease-in-out_infinite] motion-reduce:animate-none!"
+          )}
         />
       ))}
     </div>

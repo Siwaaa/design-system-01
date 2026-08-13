@@ -697,6 +697,7 @@
       ],
       "registryDependencies": [
         "@limeui/theme",
+        "@limeui/avatar",
         "@limeui/typography"
       ]
     }

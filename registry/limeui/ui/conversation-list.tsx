@@ -65,7 +65,10 @@ function ConversationTitle({
     <span
       data-slot="conversation-title"
       className={cn(
-        "block truncate text-[13px] font-medium text-foreground",
+        // раскладка
+        "block truncate",
+        // оформление
+        "text-[13px] font-medium text-foreground",
         className
       )}
       {...props}
@@ -81,7 +84,10 @@ function ConversationPreview({
     <span
       data-slot="conversation-preview"
       className={cn(
-        "block truncate text-[12px] text-muted-foreground",
+        // раскладка
+        "block truncate",
+        // оформление
+        "text-[12px] text-muted-foreground",
         className
       )}
       {...props}
