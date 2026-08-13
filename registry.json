@@ -739,6 +739,27 @@
         "@limeui/theme",
         "@limeui/button"
       ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Примитив формы: микро-лейбл в моноширинном начертании, контрол, подсказка и ошибка. Порт канонического field с лейблом в стилистике limeui.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/label",
+        "@limeui/separator",
+        "@limeui/typography"
+      ]
     }
   ]
 }
