@@ -271,6 +271,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
+      "description": "Плашка-уведомление в пяти тонах, включая два фирменных: плотный для привлечения внимания и тихий для пояснений внутри форм. Слот действия у правого края кликабелен отдельно от контейнера.",
       "files": [
         {
           "path": "registry/limeui/ui/alert.tsx",
@@ -278,7 +279,8 @@
         }
       ],
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority",
+        "radix-ui"
       ],
       "registryDependencies": [
         "@limeui/theme"
