@@ -10,9 +10,9 @@ tmp=$(mktemp -d)
 cp -r dist/* "$tmp"/
 touch "$tmp/.nojekyll"
 git -C "$tmp" init -qb gh-pages
-git -C "$tmp" -c user.name="Siwaaa" -c user.email="andry013tate@gmail.com" \
+git -C "$tmp" -c user.name="Siwaaa" -c user.email="siwaa@mail.ru" \
   add -A
-git -C "$tmp" -c user.name="Siwaaa" -c user.email="andry013tate@gmail.com" \
+git -C "$tmp" -c user.name="Siwaaa" -c user.email="siwaa@mail.ru" \
   commit -qm "Deploy demo"
 git -C "$tmp" push -f https://github.com/Siwaaa/design-system-01.git gh-pages:gh-pages
 rm -rf "$tmp"

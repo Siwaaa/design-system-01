@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { InboxIcon } from "lucide-react"
+import { ArrowRightIcon, InboxIcon } from "lucide-react"
 
-import { Alert, AlertDescription, AlertTitle } from "@/registry/limeui/ui/alert"
+import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/registry/limeui/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/registry/limeui/ui/avatar"
 import { Badge } from "@/registry/limeui/ui/badge"
 import { BarChart, type BarChartDatum } from "@/registry/limeui/ui/bar-chart"
@@ -16,6 +16,7 @@ import {
 } from "@/registry/limeui/ui/card"
 import { Checkbox } from "@/registry/limeui/ui/checkbox"
 import { Chip } from "@/registry/limeui/ui/chip"
+import { CopyField } from "@/registry/limeui/ui/copy-field"
 import {
   DataList,
   DataListBody,
@@ -46,6 +47,13 @@ import {
   EmptyStateIcon,
   EmptyStateTitle,
 } from "@/registry/limeui/ui/empty-state"
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/registry/limeui/ui/field"
 import { Input } from "@/registry/limeui/ui/input"
 import { Label } from "@/registry/limeui/ui/label"
 import {
@@ -344,6 +352,86 @@ export default function ComponentsDemo() {
             <AlertTitle>Ошибка</AlertTitle>
             <AlertDescription>Не удалось сохранить реквизиты.</AlertDescription>
           </Alert>
+          <Alert variant="primary">
+            <AlertTitle>Добавьте фото профиля</AlertTitle>
+            <AlertDescription>
+              Бренды листают каталог глазами: карточку без лица пропускают.
+            </AlertDescription>
+            <AlertAction asChild>
+              <a href="#profile" aria-label="Перейти к загрузке фото">
+                <ArrowRightIcon />
+              </a>
+            </AlertAction>
+          </Alert>
+          <Alert variant="primary-muted">
+            <AlertTitle>Нужна самозанятость</AlertTitle>
+            <AlertDescription>
+              Зарегистрируйтесь через приложение «Мой налог» — это бесплатно и
+              занимает пять минут.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </Section>
+
+      <Section title="Field">
+        <FieldGroup className="max-w-md">
+          <Field>
+            <FieldLabel htmlFor="demo-inn">ИНН</FieldLabel>
+            <Input
+              id="demo-inn"
+              placeholder="123456789012"
+              aria-describedby="demo-inn-description"
+            />
+            <FieldDescription id="demo-inn-description">
+              12 цифр — найдёте в приложении «Мой налог» или на{" "}
+              <a href="#gosuslugi">Госуслугах</a>.
+            </FieldDescription>
+          </Field>
+
+          <Field>
+            <div className="flex items-baseline justify-between">
+              <FieldLabel htmlFor="demo-about">О себе</FieldLabel>
+              <Num className="text-[10px] text-foreground-subtle">0/300</Num>
+            </div>
+            <Textarea
+              id="demo-about"
+              placeholder="Пара предложений о себе."
+              aria-describedby="demo-about-description"
+            />
+            <FieldDescription id="demo-about-description">
+              Бренд увидит это на вашей публичной странице.
+            </FieldDescription>
+          </Field>
+
+          <Field data-invalid="true">
+            <FieldLabel htmlFor="demo-bik">БИК банка</FieldLabel>
+            <Input
+              id="demo-bik"
+              defaultValue="0445"
+              aria-invalid
+              aria-describedby="demo-bik-error"
+            />
+            <FieldError id="demo-bik-error" errors={[{ message: "БИК состоит из 9 цифр." }]} />
+          </Field>
+
+          <Field orientation="horizontal">
+            <Checkbox id="demo-notify" />
+            <FieldLabel htmlFor="demo-notify" variant="default">
+              Присылать письма
+            </FieldLabel>
+          </Field>
+        </FieldGroup>
+      </Section>
+
+      <Section title="Copy Field">
+        <div className="max-w-md space-y-1.5">
+          <FieldLabel htmlFor="demo-copy-link">Ссылка на профиль</FieldLabel>
+          <CopyField
+            value="https://klipni.com/u/anton-vereschagin"
+            label="Скопировать ссылку"
+            copiedLabel="Скопировано"
+            inputProps={{ id: "demo-copy-link", name: "profile-link" }}
+          />
         </div>
       </Section>
 

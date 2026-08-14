@@ -1,6 +1,6 @@
 # limeui
 
-Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема, хук `use-mobile` и 34 компонента — 36 итемов реестра, состав ниже. Код компонентов копируется в проект — им владеет проект (философия shadcn).
+Личная дизайн-система для всех проектов — собственный [shadcn registry](https://ui.shadcn.com/docs/registry) `@limeui`, полностью повторяющий визуальный стиль [app.klipni.com](https://app.klipni.com): лайм-акцент (`#d9da26`), тёплая нейтральная палитра, pill-радиус на всех интерактивных элементах, без теней в покое. Тема, хук `use-mobile` и 36 компонентов — 38 итемов реестра, состав ниже. Код компонентов копируется в проект — им владеет проект (философия shadcn).
 
 Раздаётся статикой из папки [`r/`](r/) через GitHub raw.
 
@@ -30,13 +30,15 @@ pnpm dlx shadcn@latest add @limeui/theme @limeui/button @limeui/card
 | Item | Тип |
 |---|---|
 | `theme` | тема: cssVars light/dark, primary #d9da26 (лайм), радиус pill/20px/14px/10px, шрифты Geist + Geist Mono |
-| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `input` `label` `select` `separator` `sheet` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
+| `alert` `badge` `button` `card` `checkbox` `dialog` `dropdown-menu` `field` `input` `label` `select` `separator` `sheet` `skeleton` `switch` `table` `tabs` `textarea` `tooltip` | registry:ui — базовые shadcn-примитивы |
 | `avatar` `progress` `sidebar` | registry:ui — примитивы дашборда |
-| `bar-chart` `chip` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
+| `bar-chart` `chip` `copy-field` `data-list` `empty-state` `page-header` `segmented-control` `stat` `typography` | registry:ui — паттерны klipni, которых нет в дефолтном shadcn |
 | `message` `message-list` `message-composer` `conversation-list` `message-separator` | registry:ui — примитивы чата |
 | `use-mobile` | registry:hook |
 
-Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: `font-mono` стоит вручную только внутри самих компонентов реестра — `Eyebrow`, `Num`, лейбл и бейдж группы в `Sidebar`, шапка `Table`, `StatCaption`, подписи оси `BarChart`, инициалы `Avatar`. Прикладной код `font-mono` руками не ставит — прямой `font-mono` вне компонента реестра является признаком того, что нужен один из них.
+`@limeui/alert` — помимо стандартных тонов есть два фирменных: плотный, привлекающий внимание, и тихий, для встроенных пояснений внутри форм; у любого тона есть отдельно кликабельный слот действия у правого края.
+
+Фирменные шрифты — **Geist** и **Geist Mono**; `@limeui/theme` ставит оба как npm-зависимости. Geist Mono в limeui семантический: `font-mono` стоит вручную только внутри самих компонентов реестра — `Eyebrow`, `Num`, лейбл и бейдж группы в `Sidebar`, шапка `Table`, `StatCaption`, подписи оси `BarChart`, инициалы `Avatar`, копируемое посимвольно значение в `CopyField` — это тоже данные, та же смысловая роль, что у чисел. Прикладной код `font-mono` руками не ставит — прямой `font-mono` вне компонента реестра является признаком того, что нужен один из них.
 
 ## Дашборд
 
