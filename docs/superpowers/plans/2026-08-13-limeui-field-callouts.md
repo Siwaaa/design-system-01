@@ -365,7 +365,7 @@ git commit -m "limeui: компонент field"
 
 **Interfaces:**
 - Consumes: `cn`; `Slot` из `radix-ui`
-- Produces: дополнительно к существующим — вариант `accent`, вариант `accent-subtle`, экспорт `AlertAction`
+- Produces: дополнительно к существующим — вариант `primary`, вариант `primary-muted`, экспорт `AlertAction`
 
 - [ ] **Шаг 1: Переписать `registry/limeui/ui/alert.tsx`**
 
@@ -393,9 +393,9 @@ const alertVariants = cva(
         success: "bg-success-muted text-success [&>svg]:text-success",
         destructive: "bg-destructive/10 text-destructive [&>svg]:text-destructive",
         // Плотный фирменный тон — привлечение внимания, как у баннера klipni.
-        accent: "border-primary bg-primary-soft text-foreground [&>svg]:text-foreground",
-        // Тихий фирменный тон — встроенные пояснения внутри форм.
-        "accent-subtle":
+        primary: "border-primary bg-primary-soft text-foreground [&>svg]:text-foreground",
+        // Приглушённый фирменный тон — встроенные пояснения внутри форм.
+        "primary-muted":
           "rounded-md border-primary/30 bg-primary/[0.06] text-foreground [&>svg]:text-foreground",
       },
     },
@@ -681,7 +681,7 @@ import {
 В уже существующий блок секции `Alert` дописать два примера. Первый — плотный тон со слотом действия в виде ссылки:
 
 ```tsx
-<Alert variant="accent">
+<Alert variant="primary">
   <AlertTitle>Добавьте фото профиля</AlertTitle>
   <AlertDescription>
     Бренды листают каталог глазами: карточку без лица пропускают.
@@ -697,7 +697,7 @@ import {
 Второй — тихий тон без действия:
 
 ```tsx
-<Alert variant="accent-subtle">
+<Alert variant="primary-muted">
   <AlertTitle>Нужна самозанятость</AlertTitle>
   <AlertDescription>
     Зарегистрируйтесь через приложение «Мой налог» — это бесплатно и занимает
