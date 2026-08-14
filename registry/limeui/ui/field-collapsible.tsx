@@ -115,7 +115,13 @@ function FieldCollapsibleContent({
   return (
     <CollapsiblePrimitive.Content
       data-slot="field-collapsible-content"
-      className={cn("flex w-full min-w-0 flex-col gap-1.5", className)}
+      className={cn(
+        // раскладка. Отступ слева равен ширине квадрата с шевроном плюс зазор
+        // до метки (size-6 + gap-2.5), поэтому содержимое начинается ровно под
+        // первой буквой названия поля и читается как вложенное в заголовок.
+        "flex w-full min-w-0 flex-col gap-1.5 ps-8.5",
+        className
+      )}
       {...props}
     />
   )
