@@ -23,12 +23,16 @@ const buttonVariants = cva(
           "transition-[transform,box-shadow,filter] duration-150 ease-out",
           "hover:brightness-95 hover:-translate-y-px hover:shadow-[0_8px_20px_-8px_rgb(12_12_11_/_0.22)] active:translate-y-0 active:scale-[0.97] active:shadow-none",
         ],
+        // Оба состояния — отдельные уровни шкалы, а не доля непрозрачности
+        // базовой заливки: такая доля смешивается с подложкой и на светлой
+        // поверхности осветляла кнопку при нажатии до цвета полотна.
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/70 active:bg-secondary/60",
+          "bg-secondary text-secondary-foreground hover:bg-accent active:bg-border-strong",
         outline:
           "border border-border bg-transparent text-foreground hover:bg-accent",
         ghost: "bg-transparent text-foreground hover:bg-accent",
-        destructive: "bg-destructive text-white hover:brightness-95",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:brightness-95",
         link: "bg-transparent text-foreground underline-offset-4 hover:underline",
       },
       size: {

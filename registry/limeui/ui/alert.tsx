@@ -21,8 +21,19 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: "bg-secondary text-foreground",
-        success: "bg-success-muted text-success [&>svg]:text-success",
-        destructive: "bg-destructive/10 text-destructive [&>svg]:text-destructive",
+        // Фон из слоя индикаторов (-soft), текст и иконка — из текстового
+        // слоя: он единственный держит контраст 4.5:1 на этих подложках.
+        // Описание на цветной плашке наследует цвет варианта, а не остаётся
+        // приглушённо-серым: серый на подложке под ошибку давал 3.94:1.
+        // Иерархию заголовка держит начертание, а не цвет.
+        success:
+          "bg-success-soft text-success [&>svg]:text-success [&_[data-slot=alert-description]]:text-current",
+        warning:
+          "bg-warning-soft text-warning [&>svg]:text-warning [&_[data-slot=alert-description]]:text-current",
+        destructive:
+          "bg-destructive-soft text-destructive [&>svg]:text-destructive [&_[data-slot=alert-description]]:text-current",
+        neutral:
+          "bg-secondary text-neutral [&>svg]:text-neutral [&_[data-slot=alert-description]]:text-current",
         // Плотный фирменный тон — привлечение внимания, как у баннера klipni.
         primary: "border-primary bg-primary-soft text-foreground [&>svg]:text-foreground",
         // Приглушённый фирменный тон — встроенные пояснения внутри форм.

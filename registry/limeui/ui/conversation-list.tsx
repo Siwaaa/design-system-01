@@ -7,7 +7,7 @@ function ConversationList({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="conversation-list"
-      className={cn("flex w-full min-w-0 flex-col gap-0.5", className)}
+      className={cn("flex w-full min-w-0 flex-col", className)}
       {...props}
     />
   )
@@ -20,7 +20,18 @@ function ConversationItem({
   ...props
 }: React.ComponentProps<"button"> & { isActive?: boolean }) {
   return (
-    <li data-slot="conversation-item" className="min-w-0">
+    <li
+      data-slot="conversation-item"
+      className={cn(
+        // раскладка
+        "relative min-w-0",
+        // разделитель. Линия принадлежит пункту списка, а не кнопке: заливка
+        // состояния занимает пункт целиком, и линия на самой кнопке легла бы
+        // поверх этой заливки. Отступ слева выводит линию из-под колонки
+        // аватаров (px-3 + size-8 + gap-3), чтобы она начиналась под текстом.
+        "before:absolute before:top-0 before:start-14 before:end-0 before:h-px before:bg-border-mute first:before:hidden"
+      )}
+    >
       <button
         type="button"
         data-slot="conversation-item-button"
@@ -29,12 +40,15 @@ function ConversationItem({
         className={cn(
           // раскладка
           "flex w-full min-w-0 items-center gap-3 px-3 py-2.5 text-left",
-          // оформление
-          "rounded-sm outline-hidden transition-colors",
-          // состояния. `data-active:hover:*` обязателен: псевдокласс hover
-          // имеет более высокую специфичность, чем именованный data-вариант,
-          // и без явного правила перекрывал бы активный фон.
-          "hover:bg-secondary/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-active:bg-secondary data-active:hover:bg-secondary",
+          // оформление — заливка без скругления: пункты идут вплотную,
+          // и скруглённые углы отрывались бы от разделительных линий
+          "outline-hidden transition-colors",
+          // состояния. Оба уровня непрозрачны: доля непрозрачности смешала бы
+          // заливку с белой панелью под ней и осветлила бы пункт вместо того,
+          // чтобы его выделить. `data-active:hover:*` обязателен — псевдокласс
+          // hover специфичнее именованного data-варианта и иначе перекрыл бы
+          // активный фон.
+          "hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring data-active:bg-accent data-active:hover:bg-accent",
           className
         )}
         {...props}

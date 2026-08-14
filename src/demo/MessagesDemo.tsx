@@ -78,11 +78,14 @@ export default function MessagesDemo() {
   return (
     <DemoShell active="Сообщения" fill>
       <div className="grid min-h-0 flex-1 grid-cols-1 xl:grid-cols-[300px_1fr]">
-        <aside className="hidden min-h-0 flex-col border-r border-border xl:flex">
+        {/* Панель и лента лежат на белой поверхности, а не на полотне:
+            наведение и активный пункт читаются вниз от белого. На полотне
+            те же состояния давали около процента светлоты и были не видны. */}
+        <aside className="hidden min-h-0 flex-col border-r border-border bg-card xl:flex">
           <div className="border-b border-border px-4 py-4">
             <Eyebrow>Диалоги</Eyebrow>
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto p-2">
+          <div className="min-h-0 flex-1 overflow-y-auto py-2">
             <ConversationList>
               {CONVERSATIONS.map((chat) => (
                 <ConversationItem
@@ -109,7 +112,7 @@ export default function MessagesDemo() {
           </div>
         </aside>
 
-        <section className="flex min-h-0 min-w-0 flex-col">
+        <section className="flex min-h-0 min-w-0 flex-col bg-card">
           <header className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-3.5 lg:px-6">
             <Avatar size="sm">
               <AvatarFallback>GX</AvatarFallback>

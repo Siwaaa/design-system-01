@@ -64,7 +64,7 @@ function DropdownMenuItem({
         // оформление
         "rounded-sm text-sm outline-none select-none",
         // состояния
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive/10",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive-soft",
         className
       )}
       {...props}
