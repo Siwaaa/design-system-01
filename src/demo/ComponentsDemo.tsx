@@ -169,7 +169,9 @@ export default function ComponentsDemo() {
           <Badge>Активна</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="success">100% подходит</Badge>
+          <Badge variant="warning">На проверке</Badge>
           <Badge variant="destructive">Destructive</Badge>
+          <Badge variant="neutral">Черновик</Badge>
           <Badge variant="outline">Outline</Badge>
         </div>
       </Section>
@@ -348,9 +350,17 @@ export default function ComponentsDemo() {
             <AlertTitle>100% подходит</AlertTitle>
             <AlertDescription>Кампания соответствует вашему профилю.</AlertDescription>
           </Alert>
+          <Alert variant="warning">
+            <AlertTitle>Документы на проверке</AlertTitle>
+            <AlertDescription>Обычно это занимает до двух рабочих дней.</AlertDescription>
+          </Alert>
           <Alert variant="destructive">
             <AlertTitle>Ошибка</AlertTitle>
             <AlertDescription>Не удалось сохранить реквизиты.</AlertDescription>
+          </Alert>
+          <Alert variant="neutral">
+            <AlertTitle>Черновик не опубликован</AlertTitle>
+            <AlertDescription>Его видите только вы.</AlertDescription>
           </Alert>
           <Alert variant="primary">
             <AlertTitle>Добавьте фото профиля</AlertTitle>

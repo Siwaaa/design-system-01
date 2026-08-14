@@ -7,6 +7,10 @@ function DataList({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="data-list"
+      // Заявленное исключение из правила поверхностей: единственный блок,
+      // который остаётся заливкой на полотне, а не белой карточкой с
+      // границей. Интерактива внутри нет, поэтому порог различения к нему
+      // не применяется — см. CLAUDE.md, правило 14.
       className={cn("rounded-lg bg-muted p-5", className)}
       {...props}
     />

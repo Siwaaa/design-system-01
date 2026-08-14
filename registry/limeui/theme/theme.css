@@ -8,6 +8,23 @@
  * Шрифты: Geist (sans) + Geist Mono. Mono — семантический: font-mono стоит
  * только внутри компонентов реестра (Eyebrow, Num, Table, Sidebar, Stat,
  * BarChart, Avatar), не в прикладном коде — см. CLAUDE.md, правило 8.
+ *
+ * Нейтрали — лестница по светлоте OKLCH, каждый уровень со своей ролью:
+ * card 100% (поверхность) / background 97.6% (полотно) / muted 96.3% (зоны
+ * данных) / secondary 95.7% (заливка контролов и состояний) / border-mute
+ * 93.8% / accent 92% (активное, наведение поверх заливки) / border 91%.
+ * Соседние уровни намеренно не совпадают: раньше secondary равнялся muted,
+ * а accent — border, и четыре роли делили два цвета.
+ *
+ * Семантика двухслойна. Базовое имя (--success, --warning, --destructive,
+ * --neutral) — текстовый слой, светлота подобрана под контраст 4.5:1.
+ * Суффикс -vivid — слой индикаторов на равной светлоте OKLCH 86% (у красного
+ * 63%: на 86% потолок хромы в sRGB всего 0.076). Суффикс -soft — мягкая
+ * плашка, смесь vivid с прозрачным. Светлота текстового слоя подобрана
+ * против плашки -soft, а не против полотна: плашка темнее полотна, и
+ * калибровка по полотну не дотягивала до порога на самих плашках. Лайм #d9da26 — это oklch(86% 0.18 110),
+ * то есть точка той же шкалы, но он остаётся брендовым --primary и в
+ * семантику не входит: «главное действие» и «успешно» должны различаться.
  */
 
 :root {
@@ -23,17 +40,26 @@
     --primary-soft: #f4f7b9;
     --secondary: #f1f1ee;
     --secondary-foreground: #0c0c0b;
-    --muted: #f1f1ee;
+    --muted: #f3f3ef;
     --muted-foreground: #6b6b66;
-    --accent: #e7e7e2;
+    --accent: #e5e5e1;
     --accent-foreground: #0c0c0b;
-    --success: #1f8a45;
-    --success-muted: #e3f3e8;
-    --destructive: #d33a2c;
-    --border: #e7e7e2;
-    --border-strong: #d4d4ce;
-    --border-mute: #efefea;
-    --input: #e7e7e2;
+    --success: #057e21;
+    --success-vivid: #7cef83;
+    --success-soft: color-mix(in oklab, var(--success-vivid) 18%, transparent);
+    --warning: #7e6900;
+    --warning-vivid: #f4ce23;
+    --warning-soft: color-mix(in oklab, var(--warning-vivid) 18%, transparent);
+    --destructive: #c01323;
+    --destructive-foreground: #ffffff;
+    --destructive-vivid: #ed4042;
+    --destructive-soft: color-mix(in oklab, var(--destructive-vivid) 18%, transparent);
+    --neutral: #6c6d60;
+    --neutral-vivid: #80817a;
+    --border: #e1e1de;
+    --border-strong: #d0cfcc;
+    --border-mute: #eaeae6;
+    --input: #e1e1de;
     --ring: #0c0c0b;
     --sidebar: #ffffff;
     --sidebar-foreground: #0c0c0b;
@@ -44,7 +70,7 @@
     --sidebar-primary-foreground: #ffffff;
     --sidebar-ring: #0c0c0b;
     --chart-1: #d9da26;
-    --chart-2: #1f8a45;
+    --chart-2: #118226;
     --chart-3: #6b6b66;
     --chart-4: #0c0c0b;
     --chart-5: #9c9c95;
@@ -67,19 +93,28 @@
     --primary: #d9da26;
     --primary-foreground: #0c0c0b;
     --primary-soft: #2e2f14;
-    --secondary: #232322;
+    --secondary: #252523;
     --secondary-foreground: #f7f7f5;
-    --muted: #232322;
+    --muted: #232321;
     --muted-foreground: #9c9c95;
-    --accent: #2c2c2a;
+    --accent: #2e2e2c;
     --accent-foreground: #f7f7f5;
-    --success: #3fbd6e;
-    --success-muted: #16321f;
-    --destructive: #ef5445;
-    --border: #2c2c2a;
-    --border-strong: #3a3a37;
-    --border-mute: #232322;
-    --input: #2c2c2a;
+    --success: #54b85b;
+    --success-vivid: #7cef83;
+    --success-soft: color-mix(in oklab, var(--success-vivid) 16%, transparent);
+    --warning: #b89d2b;
+    --warning-vivid: #f4ce23;
+    --warning-soft: color-mix(in oklab, var(--warning-vivid) 16%, transparent);
+    --destructive: #ff635f;
+    --destructive-foreground: #0c0c0b;
+    --destructive-vivid: #ed4042;
+    --destructive-soft: color-mix(in oklab, var(--destructive-vivid) 20%, transparent);
+    --neutral: #9fa092;
+    --neutral-vivid: #80817a;
+    --border: #30302f;
+    --border-strong: #424241;
+    --border-mute: #1e1e1d;
+    --input: #30302f;
     --ring: #f7f7f5;
     --sidebar: #111110;
     --sidebar-foreground: #f7f7f5;
@@ -90,7 +125,7 @@
     --sidebar-primary-foreground: #0c0c0b;
     --sidebar-ring: #f7f7f5;
     --chart-1: #d9da26;
-    --chart-2: #3fbd6e;
+    --chart-2: #54b85b;
     --chart-3: #9c9c95;
     --chart-4: #f7f7f5;
     --chart-5: #6b6b66;

@@ -5,6 +5,12 @@
 @import "@fontsource-variable/geist-mono";
 @import "../registry/limeui/theme/theme.css";
 
+/* Tailwind сканирует сырой текст всех файлов проекта и генерирует утилиту из
+ * любого похожего на класс слова, включая имена классов в документации. Из-за
+ * этого разговор о вёрстке в .md возвращал в бандл уже удалённые утилиты.
+ * Разметки в документации нет, поэтому исключаем её из источников целиком. */
+@source not "../**/*.md";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -29,8 +35,17 @@
     --color-border-mute: var(--border-mute);
     --color-border-strong: var(--border-strong);
     --color-border: var(--border);
+    --color-neutral-vivid: var(--neutral-vivid);
+    --color-neutral: var(--neutral);
+    --color-destructive-soft: var(--destructive-soft);
+    --color-destructive-vivid: var(--destructive-vivid);
+    --color-destructive-foreground: var(--destructive-foreground);
     --color-destructive: var(--destructive);
-    --color-success-muted: var(--success-muted);
+    --color-warning-soft: var(--warning-soft);
+    --color-warning-vivid: var(--warning-vivid);
+    --color-warning: var(--warning);
+    --color-success-soft: var(--success-soft);
+    --color-success-vivid: var(--success-vivid);
     --color-success: var(--success);
     --color-accent-foreground: var(--accent-foreground);
     --color-accent: var(--accent);

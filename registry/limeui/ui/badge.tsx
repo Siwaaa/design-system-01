@@ -11,8 +11,14 @@ const badgeVariants = cva(
       variant: {
         default: "bg-foreground text-background",
         secondary: "bg-secondary text-secondary-foreground",
-        success: "bg-success-muted text-success",
-        destructive: "bg-destructive/10 text-destructive",
+        // Семантические плашки собраны из двух слоёв палитры: фон берётся из
+        // слоя индикаторов через -soft, текст — из текстового слоя, который
+        // держит контраст 4.5:1. Ярким слоем текст красить нельзя, он для
+        // заливок: на светлом фоне он даёт около 1.4:1.
+        success: "bg-success-soft text-success",
+        warning: "bg-warning-soft text-warning",
+        destructive: "bg-destructive-soft text-destructive",
+        neutral: "bg-secondary text-neutral",
         outline: "border border-border text-foreground",
       },
     },
