@@ -42,7 +42,7 @@ function ConversationItem({
           "flex w-full min-w-0 items-center gap-3 px-3 py-2.5 text-left",
           // оформление — заливка без скругления: пункты идут вплотную,
           // и скруглённые углы отрывались бы от разделительных линий
-          "outline-hidden transition-colors",
+          "cursor-pointer outline-hidden transition-colors",
           // состояния. Оба уровня непрозрачны: доля непрозрачности смешала бы
           // заливку с белой панелью под ней и осветлила бы пункт вместо того,
           // чтобы его выделить. `data-active:hover:*` обязателен — псевдокласс

@@ -54,7 +54,13 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/registry/limeui/ui/field"
+import {
+  FieldCollapsible,
+  FieldCollapsibleContent,
+  FieldCollapsibleTrigger,
+} from "@/registry/limeui/ui/field-collapsible"
 import { Input } from "@/registry/limeui/ui/input"
+import { InputGroup, InputGroupAddon } from "@/registry/limeui/ui/input-group"
 import { Label } from "@/registry/limeui/ui/label"
 import {
   PageHeader,
@@ -131,12 +137,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function ComponentsDemo() {
   const [selectedDay, setSelectedDay] = useState<string | null>(null)
+  // Сводку свёрнутого поля компонент не угадывает — значение приходит пропом,
+  // поэтому страница держит его сама, как это делал бы прикладной код.
+  const [status, setStatus] = useState("новый лид")
+  const [sale, setSale] = useState("")
 
   return (
     <div className="space-y-10">
       <header>
         <h1 className="text-2xl font-bold tracking-tight">limeui</h1>
-        <p className="text-muted-foreground">Реестр @limeui — тема, хук и 29 компонентов (31 итем), в стиле klipni.com</p>
+        <p className="text-muted-foreground">Реестр @limeui — тема, хук и 38 компонентов (40 итемов), в стиле klipni.com</p>
       </header>
 
       <Section title="Button">
@@ -430,6 +440,66 @@ export default function ComponentsDemo() {
               Присылать письма
             </FieldLabel>
           </Field>
+        </FieldGroup>
+      </Section>
+
+      <Section title="Input Group / Field Collapsible">
+        <FieldGroup className="max-w-md">
+          <Field>
+            <FieldLabel htmlFor="demo-connection" required>
+              Подключение
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupAddon className="bg-foreground px-3.5 text-background">
+                <span className="text-[13px] font-semibold">K</span>
+              </InputGroupAddon>
+              <Select defaultValue="green">
+                <SelectTrigger id="demo-connection">
+                  <SelectValue placeholder="Выберите подключение" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="green">Мой аккаунт · зелёный</SelectItem>
+                  <SelectItem value="test">Тестовый стенд</SelectItem>
+                </SelectContent>
+              </Select>
+              <InputGroupAddon asChild>
+                <Button variant="outline">Добавить</Button>
+              </InputGroupAddon>
+            </InputGroup>
+            <FieldDescription>
+              Приставки слева и справа берут высоту у контрола в середине.
+            </FieldDescription>
+          </Field>
+
+          <FieldCollapsible defaultOpen>
+            <FieldCollapsibleTrigger required summary={status}>
+              Статус
+            </FieldCollapsibleTrigger>
+            <FieldCollapsibleContent>
+              <Select value={status} onValueChange={setStatus}>
+                <SelectTrigger aria-label="Статус сделки">
+                  <SelectValue placeholder="Выберите статус" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="новый лид">новый лид</SelectItem>
+                  <SelectItem value="в работе">в работе</SelectItem>
+                  <SelectItem value="успешно реализовано">успешно реализовано</SelectItem>
+                </SelectContent>
+              </Select>
+            </FieldCollapsibleContent>
+          </FieldCollapsible>
+
+          <FieldCollapsible>
+            <FieldCollapsibleTrigger summary={sale}>Продажа</FieldCollapsibleTrigger>
+            <FieldCollapsibleContent>
+              <Input
+                value={sale}
+                onChange={(event) => setSale(event.target.value)}
+                placeholder="Сумма сделки"
+                aria-label="Сумма сделки"
+              />
+            </FieldCollapsibleContent>
+          </FieldCollapsible>
         </FieldGroup>
       </Section>
 

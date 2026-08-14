@@ -799,6 +799,44 @@
         "@limeui/theme",
         "@limeui/button"
       ]
+    },
+    {
+      "name": "field-collapsible",
+      "type": "registry:ui",
+      "title": "Field Collapsible",
+      "description": "Поле формы, которое сворачивается в одну строку и оставляет выбранное значение на виду. Пустое значение показывается как <empty>.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/field-collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme",
+        "@limeui/typography"
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Слитая полоса «приставка + контрол + приставка»: иконка, поле или селект и кнопка действия под общим контуром.",
+      "files": [
+        {
+          "path": "registry/limeui/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@limeui/theme"
+      ]
     }
   ]
 }
