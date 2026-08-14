@@ -102,8 +102,13 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
 function FieldLabel({
   className,
   variant = "eyebrow",
+  required = false,
+  children,
   ...props
-}: React.ComponentProps<typeof Label> & { variant?: "eyebrow" | "default" }) {
+}: React.ComponentProps<typeof Label> & {
+  variant?: "eyebrow" | "default"
+  required?: boolean
+}) {
   return (
     <Label
       data-slot="field-label"
@@ -117,7 +122,16 @@ function FieldLabel({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      {required && (
+        // Глиф декоративен: обязательность скринридер берёт из атрибута
+        // required на самом контроле, дублировать её звёздочкой не нужно.
+        <span aria-hidden className="-ml-1.5 text-destructive">
+          *
+        </span>
+      )}
+    </Label>
   )
 }
 

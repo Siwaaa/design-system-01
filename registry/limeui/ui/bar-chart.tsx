@@ -53,7 +53,14 @@ function BarChart({
               data-empty={filled ? undefined : true}
               aria-label={`${datum.label}: ${formatValue(datum.value)}`}
               onClick={onBarClick ? () => onBarClick(datum, index) : undefined}
-              className="group relative flex-1 self-stretch border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+              className={cn(
+                // раскладка
+                "group relative flex-1 self-stretch border-0 bg-transparent p-0",
+                // состояния — палец только когда столбец действительно нажимаем:
+                // без обработчика это не кнопка по смыслу, а разметка графика
+                onBarClick && "cursor-pointer",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+              )}
             >
               <span
                 aria-hidden="true"

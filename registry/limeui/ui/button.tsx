@@ -9,7 +9,7 @@ const buttonVariants = cva(
     // раскладка
     "inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     // оформление
-    "rounded-pill text-sm font-semibold tracking-tight select-none transition-colors",
+    "cursor-pointer rounded-pill text-sm font-semibold tracking-tight select-none transition-colors",
     // состояния
     "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
   ],

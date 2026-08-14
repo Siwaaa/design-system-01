@@ -465,7 +465,7 @@ function SidebarGroupAction({
         // раскладка — `after:` расширяет зону нажатия на тач-экранах
         "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center p-0 after:absolute after:-inset-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
         // оформление
-        "rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform",
+        "cursor-pointer rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform",
         // состояния
         "group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2",
         className
@@ -522,7 +522,7 @@ const sidebarMenuButtonVariants = cva(
     // раскладка
     "peer/menu-button group/menu-button flex w-full items-center gap-2.5 overflow-hidden px-2.5 py-2 text-left group-has-data-[sidebar=menu-action]/menu-item:pr-8 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
     // оформление
-    "rounded-sm text-[13px] font-medium text-muted-foreground ring-sidebar-ring outline-hidden transition-[width,height,padding]",
+    "cursor-pointer rounded-sm text-[13px] font-medium text-muted-foreground ring-sidebar-ring outline-hidden transition-[width,height,padding]",
     // свёрнутый рейл. Подпись уходит в `sr-only`, а не схлопывается по ширине:
     // нулевой по ширине span остаётся флекс-элементом, из-за чего между ним и
     // иконкой продолжает действовать gap, и центрируется блок «иконка + gap»,
@@ -756,7 +756,7 @@ function SidebarMenuSubButton({
         // раскладка
         "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden px-2.5 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
         // оформление
-        "rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden [&>svg]:text-sidebar-accent-foreground data-[size=md]:text-sm data-[size=sm]:text-xs",
+        "cursor-pointer rounded-sm text-sidebar-foreground ring-sidebar-ring outline-hidden [&>svg]:text-sidebar-accent-foreground data-[size=md]:text-sm data-[size=sm]:text-xs",
         // состояния
         "group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground",
         className

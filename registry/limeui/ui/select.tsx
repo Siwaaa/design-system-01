@@ -28,7 +28,7 @@ function SelectTrigger({
         // раскладка
         "flex h-[52px] w-full items-center justify-between gap-2 px-4 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
         // оформление — та же коробка, что у Input
-        "rounded-lg border border-border bg-secondary text-base text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
+        "cursor-pointer rounded-lg border border-border bg-secondary text-base text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
         // состояния
         "disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive",
         className
@@ -97,7 +97,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-2 pr-8 pl-2 text-sm text-foreground outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent",
+        "relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-2 pr-8 pl-2 text-sm text-foreground outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent",
         className
       )}
       {...props}
