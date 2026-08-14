@@ -10,10 +10,7 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
     <fieldset
       data-slot="field-set"
-      className={cn(
-        "flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
-        className
-      )}
+      className={cn("flex flex-col gap-4", className)}
       {...props}
     />
   )
@@ -42,7 +39,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="field-group"
       className={cn(
-        "group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
+        "group/field-group @container/field-group flex w-full flex-col gap-5 *:data-[slot=field-group]:gap-4",
         className
       )}
       {...props}
@@ -99,20 +96,24 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
 
 // Лейбл поля — тот же микро-лейбл, что Eyebrow, но настоящим элементом label:
 // обёртка над Eyebrow дала бы div и потеряла связь лейбла с полем.
+// variant="default" отключает микро-начертание и оставляет обычное
+// начертание Label (нормальный регистр, размер текста формы, основной цвет) —
+// нужно, например, для строки с чекбоксом.
 function FieldLabel({
   className,
+  variant = "eyebrow",
   ...props
-}: React.ComponentProps<typeof Label>) {
+}: React.ComponentProps<typeof Label> & { variant?: "eyebrow" | "default" }) {
   return (
     <Label
       data-slot="field-label"
       className={cn(
         // раскладка
         "group/field-label peer/field-label flex w-fit gap-2",
-        // оформление — начертание берётся из общего источника типографики
-        eyebrowVariants({ size: "default" }),
+        // оформление — микро-начертание по умолчанию, обычное — по запросу
+        variant === "eyebrow" && eyebrowVariants({ size: "default" }),
         // состояния
-        "group-data-[disabled=true]/field:opacity-50",
+        "group-data-[disabled=true]/field:opacity-50 group-data-[invalid=true]/field:text-destructive",
         className
       )}
       {...props}

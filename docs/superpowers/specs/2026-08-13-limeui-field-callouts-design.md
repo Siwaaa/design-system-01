@@ -43,7 +43,10 @@
 </div>
 ```
 Лейбл — `font-mono text-[11px] uppercase tracking-[0.04em] text-fg-muted` —
-побайтово совпадает с нашим `eyebrowVariants` размера `default` (11px).
+близок нашему `eyebrowVariants` размера `default` (11px, тот же mono, uppercase,
+приглушённый цвет), но не побайтово: межбуквенный интервал отличается —
+источник даёт 0.04em, наш токен — 0.06em (общий для `Eyebrow` во всём
+реестре, отдельный трекинг под один лейбл заводить не стали).
 
 **Плотный кликабельный баннер** («Добавьте фото профиля»):
 ```
@@ -104,8 +107,9 @@ wrapper: relative mt-3.5
 одной строке с лейблом (`flex items-baseline justify-between`), это состав
 разметки внутри `Field`, а не новый компонент.
 
-Итем: `registryDependencies` — `@limeui/theme`, `@limeui/typography`,
-`@limeui/separator`; `dependencies` — `class-variance-authority`.
+Итем: `registryDependencies` — `@limeui/theme`, `@limeui/label`,
+`@limeui/separator`, `@limeui/typography`; `dependencies` —
+`class-variance-authority`.
 
 ### 2. `Alert` — два новых тона, компонент не дробится
 
@@ -172,7 +176,7 @@ wrapper: relative mt-3.5
 заводим.
 
 Итем: `registryDependencies` — `@limeui/theme`, `@limeui/button`;
-без npm-зависимостей.
+`dependencies` — `lucide-react` (иконки `CheckIcon`/`CopyIcon`).
 
 ## Проверка
 

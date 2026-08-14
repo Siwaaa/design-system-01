@@ -9,6 +9,11 @@ const alertVariants = cva(
     // раскладка — иконка слева и слот действия справа добавляют колонки
     "relative grid w-full grid-cols-[0_1fr] gap-y-0.5 px-4 py-3.5 has-[>svg]:grid-cols-[16px_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
     "has-[>[data-slot=alert-action]]:grid-cols-[0_1fr_auto] has-[>[data-slot=alert-action]]:items-center has-[>svg]:has-[>[data-slot=alert-action]]:grid-cols-[16px_1fr_auto]",
+    // зазор перед слотом действия: без иконки первая колонка сетки нулевая,
+    // общий gap сетки добавил бы лишний отступ и перед текстом — поэтому
+    // зазор ставится отступом на самом слоте, а не через gap сетки; когда
+    // иконка есть, gap сетки уже даёт нужный отступ, поэтому отступ гасится
+    "has-[>[data-slot=alert-action]]:[&>[data-slot=alert-action]]:ml-3 has-[>svg]:has-[>[data-slot=alert-action]]:[&>[data-slot=alert-action]]:ml-0",
     // оформление
     "rounded-lg border border-border bg-secondary text-sm [&>svg]:text-foreground",
   ],
@@ -19,9 +24,9 @@ const alertVariants = cva(
         success: "bg-success-muted text-success [&>svg]:text-success",
         destructive: "bg-destructive/10 text-destructive [&>svg]:text-destructive",
         // Плотный фирменный тон — привлечение внимания, как у баннера klipni.
-        accent: "border-primary bg-primary-soft text-foreground [&>svg]:text-foreground",
-        // Тихий фирменный тон — встроенные пояснения внутри форм.
-        "accent-subtle":
+        primary: "border-primary bg-primary-soft text-foreground [&>svg]:text-foreground",
+        // Приглушённый фирменный тон — встроенные пояснения внутри форм.
+        "primary-muted":
           "rounded-md border-primary/30 bg-primary/[0.06] text-foreground [&>svg]:text-foreground",
       },
     },

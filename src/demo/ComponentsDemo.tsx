@@ -352,7 +352,7 @@ export default function ComponentsDemo() {
             <AlertTitle>Ошибка</AlertTitle>
             <AlertDescription>Не удалось сохранить реквизиты.</AlertDescription>
           </Alert>
-          <Alert variant="accent">
+          <Alert variant="primary">
             <AlertTitle>Добавьте фото профиля</AlertTitle>
             <AlertDescription>
               Бренды листают каталог глазами: карточку без лица пропускают.
@@ -363,7 +363,7 @@ export default function ComponentsDemo() {
               </a>
             </AlertAction>
           </Alert>
-          <Alert variant="accent-subtle">
+          <Alert variant="primary-muted">
             <AlertTitle>Нужна самозанятость</AlertTitle>
             <AlertDescription>
               Зарегистрируйтесь через приложение «Мой налог» — это бесплатно и
@@ -377,8 +377,12 @@ export default function ComponentsDemo() {
         <FieldGroup className="max-w-md">
           <Field>
             <FieldLabel htmlFor="demo-inn">ИНН</FieldLabel>
-            <Input id="demo-inn" placeholder="123456789012" />
-            <FieldDescription>
+            <Input
+              id="demo-inn"
+              placeholder="123456789012"
+              aria-describedby="demo-inn-description"
+            />
+            <FieldDescription id="demo-inn-description">
               12 цифр — найдёте в приложении «Мой налог» или на{" "}
               <a href="#gosuslugi">Госуслугах</a>.
             </FieldDescription>
@@ -389,26 +393,44 @@ export default function ComponentsDemo() {
               <FieldLabel htmlFor="demo-about">О себе</FieldLabel>
               <Num className="text-[10px] text-foreground-subtle">0/300</Num>
             </div>
-            <Textarea id="demo-about" placeholder="Пара предложений о себе." />
-            <FieldDescription>
+            <Textarea
+              id="demo-about"
+              placeholder="Пара предложений о себе."
+              aria-describedby="demo-about-description"
+            />
+            <FieldDescription id="demo-about-description">
               Бренд увидит это на вашей публичной странице.
             </FieldDescription>
           </Field>
 
           <Field data-invalid="true">
             <FieldLabel htmlFor="demo-bik">БИК банка</FieldLabel>
-            <Input id="demo-bik" defaultValue="0445" aria-invalid />
-            <FieldError errors={[{ message: "БИК состоит из 9 цифр." }]} />
+            <Input
+              id="demo-bik"
+              defaultValue="0445"
+              aria-invalid
+              aria-describedby="demo-bik-error"
+            />
+            <FieldError id="demo-bik-error" errors={[{ message: "БИК состоит из 9 цифр." }]} />
+          </Field>
+
+          <Field orientation="horizontal">
+            <Checkbox id="demo-notify" />
+            <FieldLabel htmlFor="demo-notify" variant="default">
+              Присылать письма
+            </FieldLabel>
           </Field>
         </FieldGroup>
       </Section>
 
       <Section title="Copy Field">
-        <div className="max-w-md">
+        <div className="max-w-md space-y-1.5">
+          <FieldLabel htmlFor="demo-copy-link">Ссылка на профиль</FieldLabel>
           <CopyField
             value="https://klipni.com/u/anton-vereschagin"
             label="Скопировать ссылку"
             copiedLabel="Скопировано"
+            inputProps={{ id: "demo-copy-link", name: "profile-link" }}
           />
         </div>
       </Section>
