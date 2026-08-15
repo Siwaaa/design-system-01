@@ -10,7 +10,9 @@ const buttonVariants = cva(
     "inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     // оформление
     "cursor-pointer rounded-pill text-sm font-semibold tracking-tight select-none transition-colors",
-    // состояния
+    // состояния. Геометрия нажатия не анимируется намеренно: отклик на
+    // собственное нажатие должен срабатывать без задержки, а раз это не
+    // анимация, гасить его при prefers-reduced-motion нечего.
     "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
   ],
   {
@@ -27,13 +29,16 @@ const buttonVariants = cva(
         // базовой заливки: такая доля смешивается с подложкой и на светлой
         // поверхности осветляла кнопку при нажатии до цвета полотна.
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-accent active:bg-border-strong",
+          "bg-secondary text-secondary-foreground hover:bg-accent active:scale-[0.97] active:bg-border-strong",
         outline:
-          "border border-border bg-transparent text-foreground hover:bg-accent",
-        ghost: "bg-transparent text-foreground hover:bg-accent",
+          "border border-border bg-transparent text-foreground hover:bg-accent active:scale-[0.97] active:bg-border-strong",
+        ghost:
+          "bg-transparent text-foreground hover:bg-accent active:scale-[0.97] active:bg-border-strong",
         destructive:
-          "bg-destructive text-destructive-foreground hover:brightness-95",
-        link: "bg-transparent text-foreground underline-offset-4 hover:underline",
+          "bg-destructive text-destructive-foreground hover:brightness-95 active:scale-[0.97] active:brightness-90",
+        // Ссылка геометрии не получает: двигать текстовую ссылку неправильно,
+        // нажатие обозначается приглушением цвета.
+        link: "bg-transparent text-foreground underline-offset-4 hover:underline active:text-muted-foreground",
       },
       // Высоты по шагам sm/default/lg — h-11/h-13/h-14 — общий с Input,
       // SelectTrigger и Textarea шаг: значения фиксированы, а не выведены из

@@ -33,7 +33,7 @@ function SegmentedControlItem({
         // оформление
         "cursor-pointer rounded-pill text-sm font-semibold tracking-tight text-foreground outline-none transition-colors",
         // состояния — выбранный сегмент инвертируется в чёрную плашку
-        "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=checked]:bg-foreground data-[state=checked]:text-background",
+        "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=checked]:bg-foreground data-[state=checked]:text-background",
         className
       )}
       {...props}

@@ -66,8 +66,9 @@ function FieldCollapsibleTrigger({
           "flex size-6 shrink-0 items-center justify-center",
           // оформление
           "rounded-sm bg-secondary text-muted-foreground transition-colors",
-          // состояния — заливка идёт вниз от белого, как у прочих состояний
-          "group-hover/field-collapsible-trigger:bg-accent"
+          // состояния — заливка идёт вниз от белого, как у прочих состояний,
+          // нажатие делает ещё шаг вниз от того, что показал hover
+          "group-hover/field-collapsible-trigger:bg-accent group-active/field-collapsible-trigger:bg-border-strong"
         )}
       >
         <ChevronRight

@@ -16,7 +16,7 @@ function Chip({
         // оформление
         "cursor-pointer rounded-pill border border-border bg-secondary text-sm font-medium tracking-tight text-foreground outline-none transition-colors",
         // состояния — нажатый чип инвертируется в чёрную плашку
-        "hover:bg-accent disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background",
+        "hover:bg-accent active:scale-[0.97] active:bg-border-strong disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background",
         className
       )}
       {...props}

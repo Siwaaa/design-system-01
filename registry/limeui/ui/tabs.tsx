@@ -36,7 +36,7 @@ function TabsTrigger({
         // оформление — прозрачная нижняя граница держит высоту до активации
         "cursor-pointer border-b-2 border-transparent text-sm font-medium text-muted-foreground transition-colors",
         // состояния
-        "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=active]:border-foreground data-[state=active]:text-foreground",
+        "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=active]:border-foreground data-[state=active]:text-foreground",
         className
       )}
       {...props}

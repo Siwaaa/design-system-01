@@ -58,7 +58,7 @@ function BarChart({
                 "group relative flex-1 self-stretch border-0 bg-transparent p-0",
                 // состояния — палец только когда столбец действительно нажимаем:
                 // без обработчика это не кнопка по смыслу, а разметка графика
-                onBarClick && "cursor-pointer",
+                onBarClick && "cursor-pointer active:opacity-70",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
               )}
             >
