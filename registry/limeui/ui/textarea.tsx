@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 const textareaVariants = cva(
   [
     // раскладка
-    "flex w-full",
+    "flex w-full min-w-0",
     // оформление
     "rounded-md border border-border bg-secondary text-foreground outline-none transition-colors placeholder:text-muted-foreground",
     // состояния
