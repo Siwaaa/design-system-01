@@ -11,11 +11,13 @@ function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="input-group"
       className={cn(
-        // раскладка — высоту держит сама группа, та же, что у Input и Select.
-        // Дети приводятся к ней принудительно: у Button собственная высота
-        // задана таким же по весу классом, и без `!` победил бы порядок
-        // правил в бандле, а не намерение — кнопка распирала полосу.
-        "flex h-[52px] w-full min-w-0 items-stretch *:h-full!",
+        // раскладка — высота default из общего шага Button/Input/Select/
+        // Textarea (h-11/h-13/h-14). Дети приводятся к ней принудительно:
+        // у Button собственная высота задана таким же по весу классом, и без
+        // `!` победил бы порядок правил в бандле, а не намерение — до
+        // выравнивания шкалы Button был на 2px выше Input и Select, и в
+        // этой группе кнопка распирала полосу.
+        "flex h-13 w-full min-w-0 items-stretch *:h-full!",
         // оформление — общая коробка, та же геометрия, что у Input и Select
         "overflow-hidden rounded-lg border border-border bg-card",
         // дети отдают свой контур группе: собственная рамка и радиус сняты,

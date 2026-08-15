@@ -323,6 +323,21 @@ export default function ComponentsDemo() {
               </SelectContent>
             </Select>
           </div>
+          <div className="grid gap-2">
+            <Label>Select · длинное значение</Label>
+            {/* Значение обрезается многоточием вместо того, чтобы раздвинуть
+                триггер или перенести текст на вторую строку. */}
+            <Select defaultValue="long">
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="long">
+                  Очень длинное название рекламного аккаунта, которое не помещается в поле
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <div className="flex items-center gap-2">
             <Checkbox id="terms" />
             <Label htmlFor="terms">Согласен с условиями</Label>
@@ -330,6 +345,42 @@ export default function ComponentsDemo() {
           <div className="flex items-center gap-2">
             <Switch id="notify" />
             <Label htmlFor="notify">Уведомления</Label>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Размеры контролов">
+        <div className="grid max-w-md gap-5">
+          <p className="text-sm text-muted-foreground">
+            Button, Input, SelectTrigger и Textarea делят один шаг высоты —
+            sm/default/lg. На своём размере Button, Input и Select всегда
+            совпадают по высоте, без ручной подгонки.
+          </p>
+          {(["sm", "default", "lg"] as const).map((size) => (
+            <div key={size} className="grid gap-2">
+              <Eyebrow size="sm">{size}</Eyebrow>
+              <div className="flex items-center gap-2">
+                <Input size={size} placeholder="Input" className="max-w-40" />
+                <Select>
+                  <SelectTrigger size={size} className="max-w-40">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="a">Вариант А</SelectItem>
+                    <SelectItem value="b">Вариант Б</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button size={size}>Button</Button>
+              </div>
+            </div>
+          ))}
+          <div className="grid gap-2">
+            <Eyebrow size="sm">Textarea · sm / default / lg</Eyebrow>
+            <div className="grid gap-2">
+              <Textarea size="sm" placeholder="Sm" />
+              <Textarea placeholder="Default" />
+              <Textarea size="lg" placeholder="Lg" />
+            </div>
           </div>
         </div>
       </Section>

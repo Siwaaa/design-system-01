@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Select as SelectPrimitive } from "radix-ui"
+import { cva, type VariantProps } from "class-variance-authority"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -16,23 +17,47 @@ function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.V
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
+// Высоты — тот же шаг sm/default/lg, что у Button, Input и Textarea:
+// h-11/h-13/h-14. Значения дублируются по числу, а не через общую
+// переменную, потому что реестр раздаёт компоненты поодиночке.
+const selectTriggerVariants = cva(
+  [
+    // раскладка — значение обязано уметь сжиматься: у флекс-элемента
+    // по умолчанию min-width:auto равен ширине контента, поэтому без
+    // явного min-w-0 длинное значение (имя аккаунта, воронки) раздвигало
+    // триггер вместо того, чтобы обрезаться многоточием
+    "flex w-full items-center justify-between gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "[&>[data-slot=select-value]]:min-w-0 [&>[data-slot=select-value]]:truncate",
+    // оформление — та же коробка, что у Input
+    "cursor-pointer rounded-lg border border-border bg-secondary text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
+    // состояния
+    "disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive",
+  ],
+  {
+    variants: {
+      size: {
+        default: "h-13 px-4 text-base",
+        sm: "h-11 px-3.5 text-sm",
+        lg: "h-14 px-5 text-base",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+)
+
 function SelectTrigger({
   className,
   children,
+  size,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
+}: React.ComponentProps<typeof SelectPrimitive.Trigger> &
+  VariantProps<typeof selectTriggerVariants>) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
-      className={cn(
-        // раскладка
-        "flex h-[52px] w-full items-center justify-between gap-2 px-4 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-        // оформление — та же коробка, что у Input
-        "cursor-pointer rounded-lg border border-border bg-secondary text-base text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
-        // состояния
-        "disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive",
-        className
-      )}
+      className={cn(selectTriggerVariants({ size }), className)}
       {...props}
     >
       {children}
@@ -166,4 +191,5 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
+  selectTriggerVariants,
 }

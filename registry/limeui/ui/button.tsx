@@ -35,8 +35,12 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:brightness-95",
         link: "bg-transparent text-foreground underline-offset-4 hover:underline",
       },
+      // Высоты по шагам sm/default/lg — h-11/h-13/h-14 — общий с Input,
+      // SelectTrigger и Textarea шаг: значения фиксированы, а не выведены из
+      // общей переменной, потому что реестр раздаёт файлы поодиночке и
+      // каждый компонент можно поставить без остальных — см. CLAUDE.md.
       size: {
-        default: "h-[54px] px-6 text-base",
+        default: "h-13 px-6 text-base",
         sm: "h-11 px-4 text-sm",
         lg: "h-14 px-8 text-base",
         icon: "size-11 shrink-0 px-0",

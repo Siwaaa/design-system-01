@@ -2,13 +2,16 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input",
   "title": "Input",
+  "dependencies": [
+    "class-variance-authority"
+  ],
   "registryDependencies": [
     "@limeui/theme"
   ],
   "files": [
     {
       "path": "registry/limeui/ui/input.tsx",
-      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        // раскладка\n        \"flex h-[52px] w-full min-w-0 px-4\",\n        // оформление\n        \"rounded-lg border border-border bg-secondary text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground\",\n        // кнопка выбора файла у type=\"file\"\n        \"file:border-0 file:bg-transparent file:text-sm file:font-medium\",\n        // состояния\n        \"disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Высоты — тот же шаг sm/default/lg, что у Button, SelectTrigger и Textarea:\n// h-11/h-13/h-14. Значения дублируются в каждом файле по числу, а не через\n// общую переменную, потому что реестр раздаёт компоненты поодиночке —\n// см. CLAUDE.md.\nconst inputVariants = cva(\n  [\n    // раскладка\n    \"flex w-full min-w-0\",\n    // оформление\n    \"rounded-lg border border-border bg-secondary text-foreground outline-none transition-colors placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground\",\n    // кнопка выбора файла у type=\"file\"\n    \"file:border-0 file:bg-transparent file:text-sm file:font-medium\",\n    // состояния\n    \"disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:outline-destructive\",\n  ],\n  {\n    variants: {\n      size: {\n        default: \"h-13 px-4 text-base\",\n        sm: \"h-11 px-3.5 text-sm\",\n        lg: \"h-14 px-5 text-base\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nfunction Input({\n  className,\n  type,\n  size,\n  ...props\n}: Omit<React.ComponentProps<\"input\">, \"size\"> &\n  VariantProps<typeof inputVariants>) {\n  // Нативный HTML-атрибут `size` (число видимых символов) у `<input>`\n  // отключён намеренно: имя занято под шаг плотности sm/default/lg,\n  // как у Button, SelectTrigger и Textarea.\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(inputVariants({ size }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Input, inputVariants }\n",
       "type": "registry:ui"
     }
   ],
