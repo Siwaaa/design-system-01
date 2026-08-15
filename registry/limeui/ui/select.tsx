@@ -22,11 +22,13 @@ function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.V
 // переменную, потому что реестр раздаёт компоненты поодиночке.
 const selectTriggerVariants = cva(
   [
-    // раскладка — значение обязано уметь сжиматься: у флекс-элемента
-    // по умолчанию min-width:auto равен ширине контента, поэтому без
-    // явного min-w-0 длинное значение (имя аккаунта, воронки) раздвигало
-    // триггер вместо того, чтобы обрезаться многоточием
-    "flex w-full items-center justify-between gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    // раскладка — min-w-0 обязателен и на самом триггере (как у Input),
+    // и на дочернем значении: у флекс-элемента по умолчанию min-width:auto
+    // равен ширине контента, поэтому без min-w-0 на триггере он не сжимался
+    // бы в строке (например, рядом с приставками InputGroup), а без
+    // min-w-0 на самом значении длинное значение (имя аккаунта, воронки)
+    // раздвигало бы его вместо обрезки многоточием
+    "flex w-full min-w-0 items-center justify-between gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     "[&>[data-slot=select-value]]:min-w-0 [&>[data-slot=select-value]]:truncate",
     // оформление — та же коробка, что у Input
     "cursor-pointer rounded-lg border border-border bg-secondary text-foreground outline-none transition-colors [&_svg]:text-muted-foreground",
