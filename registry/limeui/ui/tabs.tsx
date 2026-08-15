@@ -34,9 +34,9 @@ function TabsTrigger({
         // раскладка
         "inline-flex items-center justify-center gap-1.5 px-3 py-2",
         // оформление — прозрачная нижняя граница держит высоту до активации
-        "cursor-pointer border-b-2 border-transparent text-sm font-medium text-muted-foreground transition-colors",
+        "cursor-pointer border-b-2 border-transparent text-sm font-medium text-muted-foreground transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out",
         // состояния
-        "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=active]:border-foreground data-[state=active]:text-foreground",
+        "active:scale-[0.97] active:duration-75 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=active]:border-foreground data-[state=active]:text-foreground",
         className
       )}
       {...props}
