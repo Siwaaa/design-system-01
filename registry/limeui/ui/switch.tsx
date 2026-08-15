@@ -14,9 +14,9 @@ function Switch({
         // раскладка
         "peer inline-flex h-6 w-10 shrink-0 items-center",
         // оформление — прозрачная граница держит габарит наравне с Input
-        "cursor-pointer rounded-pill border border-transparent bg-secondary transition-colors outline-none",
+        "cursor-pointer rounded-pill border border-transparent bg-secondary transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out outline-none",
         // состояния
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary",
+        "active:scale-95 active:duration-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary",
         className
       )}
       {...props}

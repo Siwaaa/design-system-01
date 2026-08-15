@@ -64,7 +64,7 @@ function DropdownMenuItem({
         // оформление
         "rounded-sm text-sm outline-none select-none",
         // состояния
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive-soft",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent active:bg-border-strong data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive-soft",
         className
       )}
       {...props}
@@ -82,7 +82,7 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        "relative flex cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent",
+        "relative flex cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent active:bg-border-strong",
         className
       )}
       checked={checked}
@@ -113,7 +113,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        "relative flex cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent",
+        "relative flex cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent active:bg-border-strong",
         className
       )}
       {...props}
@@ -174,7 +174,7 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset || undefined}
       className={cn(
-        "flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[highlighted]:bg-accent data-[inset]:pl-8 data-[state=open]:bg-accent",
+        "flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[highlighted]:bg-accent active:bg-border-strong data-[inset]:pl-8 data-[state=open]:bg-accent",
         className
       )}
       {...props}

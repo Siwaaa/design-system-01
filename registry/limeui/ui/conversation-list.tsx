@@ -48,7 +48,7 @@ function ConversationItem({
           // чтобы его выделить. `data-active:hover:*` обязателен — псевдокласс
           // hover специфичнее именованного data-варианта и иначе перекрыл бы
           // активный фон.
-          "hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring data-active:bg-accent data-active:hover:bg-accent",
+          "hover:bg-secondary active:bg-accent focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring data-active:bg-accent data-active:hover:bg-accent",
           className
         )}
         {...props}

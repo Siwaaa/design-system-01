@@ -189,6 +189,9 @@
       ],
       "registryDependencies": [
         "@limeui/theme"
+      ],
+      "dependencies": [
+        "class-variance-authority"
       ]
     },
     {
@@ -203,6 +206,9 @@
       ],
       "registryDependencies": [
         "@limeui/theme"
+      ],
+      "dependencies": [
+        "class-variance-authority"
       ]
     },
     {
@@ -364,6 +370,7 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "lucide-react",
         "radix-ui"
       ],

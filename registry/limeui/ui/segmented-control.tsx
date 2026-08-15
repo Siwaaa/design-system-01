@@ -31,9 +31,9 @@ function SegmentedControlItem({
         // раскладка
         "px-4 py-2",
         // оформление
-        "cursor-pointer rounded-pill text-sm font-semibold tracking-tight text-foreground outline-none transition-colors",
+        "cursor-pointer rounded-pill text-sm font-semibold tracking-tight text-foreground outline-none transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out",
         // состояния — выбранный сегмент инвертируется в чёрную плашку
-        "disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=checked]:bg-foreground data-[state=checked]:text-background",
+        "active:scale-[0.97] active:duration-75 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=checked]:bg-foreground data-[state=checked]:text-background",
         className
       )}
       {...props}
